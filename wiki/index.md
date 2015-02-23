@@ -1,6 +1,8 @@
 # Coding 101
 **As simple as possible introduction/application of programming pragmatically applied to iOS programming**
 <br />
+_There are lots of intricacies and technicalities, but without nitty-gritty details the summaries cover fair assumptions_
+<br />
 
 1. [universal concepts](#101)
 2. [C](#C)
@@ -16,11 +18,13 @@
 #### binary
 bit / nibble / octet / byte / word 
 <!-- defacto byte===8 bits -->
+<!-- use spacing or symbols for readability -->
 ```
 0 or 1, 4 bits, 8 bits, *8 bits, *32-bits
 ```
 <!-- nybble -->
 MSB...LSB
+<!-- little vs *big endian -->
 <br/>
 _All counting starts at 0_
 <br/>
@@ -105,12 +109,21 @@ _we decide what the meanings of the bits are_
 
 
 #### primitive types
+
+boolean : true / false
+```
+0b11111111 (true)
+0b00000000 (false)
+```
+<br/>
+
 integer: whole numbers
 ```
 0b00001010 (10)
 0b10101010 (170)
 ```
 <br/>
+
 unsigned: always considered positive
 <br/>
 signed: 2s compliment signing (if negative, flip the bits + add 1)
@@ -124,6 +137,7 @@ signed: 2s compliment signing (if negative, flip the bits + add 1)
 (0b01001011+1 = 0b01001100 = 76 )
 ```
 <br/>
+
 <!-- scientific notation -->
 floating point: allow to use wide range of numbers, different sections of bits mean different things, certain values have specific meanings (+inf,-inf,NaN,+0,-0)
 <!-- http://steve.hollasch.net/cgindex/coding/ieeefloat.html -->
@@ -144,15 +158,32 @@ IEEE 32-bit FP:
       - eg: 1.5E10 + 1.1E-10 = 1.5E10 [not 15,000,000,000.0000000001]
 - &epsilon; (epsilon) = smallest representable number (in magnitude)
 <br/>
+
+
 character
 <br/>
+ASCII (7 bits) / Extended ASCII (8 bits), Unicode (16 bits)
+<br/>
+```
+0b01000001 (65) == 'A'
+...
+0b01111010 (122) == 'z'
+```
+[ASCII Table](http://www.asciitable.com/index/asciifull.gif)
+<!-- ![ASCII](http://www.asciitable.com/index/asciifull.gif) -->
+<br/>
+
 <!-- character strings -->
 strings
 <br/>
-
+```
+0b01001000 01100101 01101100 01101100 01101111 (72,101,108,108,111) == "Hello"
+```
+<br/>
 
 
 #### bitwise operations
+<!-- bit masking -->
 NOT: ~
 ```
  ~ 0b010101
@@ -221,39 +252,152 @@ b--   // b = 4
 
 #### logical operators
 AND &&
+```
+false && false  == false 
+false &&  true  == false 
+ true && false  == false 
+ true &&  true  ==  true 
+    9 &&     4  == false (0b00001001(!=0) && 0b00000100(!=0) == true)
+    5 &&     0  == false (0b00000101(!=0) && 0b00000000(==0) == false)
+```
+<br/>
 OR ||
+```
+false || false  == false 
+false ||  true  ==  true 
+ true || false  ==  true 
+ true ||  true  ==  true 
+    9 ||     4  ==  true (0b00001001(!=0) || 0b00000100(!=0) == true)
+    5 &&     0  == false (0b00000101(!=0) && 0b00000000(==0) == true)
+```
+<br/>
 EQ ==
+```
+false == false  ==  true
+false ==  true  == false 
+ true == false  == false 
+ true ==  true  ==  true 
+    9 ==     4  == false (0b00001001 == 0b00000100 == false)
+```
+<br/>
 NE !=
+```
+false != false  == false
+false !=  true  ==  true 
+ true != false  ==  true 
+ true !=  true  == false 
+    9 !=     4  ==  true (0b00001001 != 0b00000100 == true)
+```
+<br/>
 GT >
+```
+    9 >     4  ==  true 
+    5 >     9  == false 
+    5 >     5  == false 
+```
+<br/>
 LT < 
+```
+    9 <     4  == false 
+    5 <     9  ==  true 
+    5 <     5  == false 
+```
+<br/>
 GTE >=
+```
+    9 >=    4  ==  true 
+    5 >=    9  == false 
+    5 >=    5  ==  true 
+```
+<br/>
 LTE <=
+```
+    9 <=    4  == false 
+    5 <=    9  ==  true 
+    5 <=    5  ==  true 
+```
+<br/>
 
 #### assignment
+<!-- := -->
 ASSIGN =
+```
+a,b,c       # a=0,b=0,c=0
+a = 4       # a=4,b=0,c=0
+b = 9       # a=4,b=9,c=0
+c = a       # a=4,b=9,c=4
+```
+<!-- need temporary variable -->
+SWAP Example
+```
+a,b,c       # a=0,b=0
+a = 4       # a=4,b=0
+b = 9       # a=4,b=9
+a = b       # a=9,b=9
+b = a       # a=9,b=9
+            # a == b == 9
+```
 
-#### combinitorics
+#### combinatorics
 +=, -=, /=, *=, %=, ^=, |=, &=, <<=, >>=
 
 #### unary other
-pointer *
-address &
 negate -
+```
+a = -b
+```
+<br/>
+address &
+```
+&variable      # this gets the address (location in memory of a variable), eg 0x7fd0 80cc 5ff0
+```
+<br/>
+pointer *
+```
+*pointer       # pointer is a variable that holds the address of a variable, effectively pointing to it
+```
 
 #### tertiary other
 conditional ?:
-
+<br/>
+&lt;expression to evaluate&gt; ? &lt;expression to use if true&gt; : &lt;expression to use if false&gt;
+```
+(a==b) ? 5 : 9
+```
 
 #### exceptions
-overflow
-underflow
-
+**overflow** : reach a number too large to be represented
+<br/>
+**underflow** : reach a number too tiny to be represented
+<br/>
+**defined** : system/user defined, used to change flow of program (eg list length is zero)
+<br/>
 
 #### collections
-array
-hash = key/value
+**array** : ordered list of values
+```
+var array = new Array() # ordered list
+array[0] = 9
+array[1] = 100
+array[2] = 6
+array[3] = 0x00FF00
+array[4] = 0
+                        # array = {9,100,6,65280,0}
+```
+operations: push, pop, update
+<br/>
 
-
+<!-- some features may/not be available for certain languages out-of-the-box -->
+**hash** : unordered key/value list of values (keyed array, map, dictionary, table)
+<br/>
+```
+var hash = {}                    # unordered list
+hash["birthday"] = "07/18/1987"
+hash["age"] = "27"
+hash["key"] = "value"
+                                # hash = {"birthday":"07/18/1987","age":"27","key":"value"}
+```
+operations: insert, update, delete
 
 
 ### RAM
@@ -261,52 +405,128 @@ giant 1-dimensional list of bits
 ```
 ...011010110101000010101010001...
 ```
-internally, each (referencing each bit of RAM is comparatively wasteful)
+Internally, memory is actually 'chunk'ed into small groupings, because having a unique address for every bit of RAM is wasteful, when compared to referencing say, 8-bit-chunks at a time. Almost never does a programmer care about only a single bit -- typically you would deal with objects that are at least dozens of bits in size.
+<br/>
+<br/>
+<!-- may have much less memory, but OS abstracts that from us -->
+**"Address Space"**: Set of all addresses that can be referenced, modern systems: 4GB+ (4294967296 bytes, max location: 0xFFFFFFFF), smallest addressable space = &lowast;byte
 ```
+|   RAM VALUE  | < RAM ADDRESS
+|      ...     | < ...
+|  0b00001000  | < 0x06FF
+|  0b00001000  | < 0x0700
+|  0b01001000  | < 0x0701
+|  0b11111111  | < 0x0702
+|      ...     | < ...
+|  0b00000000  | < 0x07FF
+|  0b00000000  | < 0x0800 --         EX 32 bit integer starting at index 0x0800
+|  0b00010010  | < 0x0801  | ------\ (binary: 0b0100101101011010000111)
+|  0b11010110  | < 0x0802  | ------/ (hex: 0x12D687)
+|  0b10000111  | < 0x0803 --         (decimal: 1234567)
+|  0b00000000  | < 0x0804
+|      ...     | < ...
 ```
-"Address Space"
-smallest addressable space = byte
 
 #### data
+The data at a particular address can be interpreted as any type of data object (eg int, float, string), depending on the variable used to point at it. The data itself could be used to store the address of another variable, or the address to an address to an address...
 
 #### instructions
-statements
-variables
-jumping
+The data at an address can be interpreted as one of various (low-level) instructions, from simple statements like add the data from two addresses and put the result into a third address. The data could also be the address of a statement to be executed, or an offset to let the program counter 'jump' to a nearby memory location.
 
+<!-- arithmetic and logic unit -->
 #### ALU
-operates using small set of local registers (32~64)
-program counter
+<!-- very close and very fast -->
+operates using small set of local registers (32~64), only some of which may be available for a program to use.
+<br />
+```
+    +----------+     +----------+      \    \    /    /            |
+ A: | xxxxxxxx |  B: | yyyyyyyy |       \    |  |    /         [ CLOCK]---..
+    +----------+     +----------+        \   |  |   /
+         |                 |              |  |  |  |
+         ------\   /--------              |  |  |  |
+                [x]--------------------- [ OPERATION ]---..
+                 |                             ^
+                 v                             |              |   |   |  
+    +-------------------+     +-------------------+     +-------------------+
+  D:| zzzzzzzz zzzzzzzz |  PC:| xxxxxxxx xxxxxxxx |  IR:| xxxxxxxx xxxxxxxx |
+    +-------------------+     +-------------------+     +-------------------+
+           |   |   |                 |   |   |                |   |   |
+```
+<br />
+operation registers: inputs to be used in an operation
+<br />
+accumulator register: result of operation
+<br />
+program counter: keeps track of current location in program. You can jump around in 
+<br />
+<!-- 0s and 1s of IR correspond to circuitry to de/activate appropriate channels -->
+instruction register: keeps track of the currecnt instruction
 
 #### code chain
-visual programming
-human-readable languages
-compiler / interpretr
-assembly code
-machine code
-
+```
+                           (more general)
+visual programming          ^ more human-friendly   
+human-readable languages    ^                          v
+[compiler / interpreter]    ^                          v
+assembly code               ^                          v
+machine code                    more control/exactness v
+                            (more HW-circuit-correlation)
+```
 
 #### caching
-it takes time to access data, so to 
+It takes time to access data, so instead of throwing away data that might be used again (in the near future), why not keep it around if you have some space to put it locally?
+```
+CPU registers      [words]          faster, smaller, expensive
+CPU L1 cache       [~8MB]            ^
+CPU L2 cache       [~16MB]           |
+CPU L3 cache       [~16MB]           |
+RAM                [~32GB]           |
+HDD Cache          [~32MB]           |
+HDD                [~2TB]            |
+backup tape-drives [~100TB]          v
+internet           [~EB]            slower, bigger, cheaper
+```
 
-CPU registers [words]
-CPU L1 cache [~8MB]
-CPU L2 cache [~16MB]
-RAM [~32GB]
-HDD [~2TB]
-backup tape-drives [~100TB]
-internet [~PB]
+
 - cold-start
 - cache-hit
 - cache-miss
 
 #### main()
+main (or similar) is the entry point of a program.
+<br/>
+parameters can be passed to it via the OS or other programs
+<br/>
+```C
+// C, C#, Obj-C, C++, ..
+int main(int argc, char **argv){
+   ...
+   return 0;
+}
+```
+```JAVA
+// JAVA
+public static void main(String[] args){
+   ...
+}
+```
+```Ruby
+# ruby
+#!/usr/bin/env ruby 
+  ARGV.length
+  ...
+```
+```Python
+# Python
+def main(argv):
+    ...
+```
 
 <!-- C Examples .................................................................. -->
 <a name="C"></a>
 ## C
 
-### 
+### variable types
 
 #### primitives
 
@@ -314,19 +534,112 @@ internet [~PB]
 
 #### structs
 
+### space
+- compiletime
+    - constants
+- runtime
+    - memory allocation
+- stack/heap
+    - stack grows based on functions calling functions
+    - heap grows as more memory is required to store objects
+
+```
+---------
+CONSTANTS
+---------
+PROGRAM
+---------
+STACK
+v
+
+(trash)
+
+^
+HEAP
+---------
+```
+
 #### main
+entry point for application
+
+#### pass by value
+- primitives, structs
+
+#### pass by reference
+- arrays, objects
+
+#### do while loop
+
+#### while loop
+
+#### for loop
+
+#### foreach loop
+
+#### functions
+
+#### methods
+
+#### reserved words
+- can't use for variable/function names
+
+#### NULL
+Ways to represent 'nothingness' or object does not exist
+<br/>
+null, NULL, nil, Nil, undefined
 
 <!-- Objective-C Examples .................................................................. -->
 <a name="ObjC"></a>
 ## Obj-C
-#### objects
+### objects
 - operations / interactions
 
-<!-- closure = env+control -->
 
-#### main
+#### class vs instance
+
+
+<!-- closure = env+control -->
+#### blocks
+
+pseudo-objects (NSInteger, CGFloat, NSNumber, ...)
+
+
+#### complex equality
+address? (exact object)
+equalness of separate objects
+
+### main
 - 
-#### libraries
+```
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([DIAppDelegate class]));
+    }
+}
+```
+AppAdelegate
+```
+...
+-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+-(void)applicationWillEnterForeground:(UIApplication *)application;
+-(void)applicationDidEnterBackground:(UIApplication *)application;
+-(void)applicationWillTerminate:(UIApplication *)application;
+...
+```
+
+### libraries
+
+
+.framework (general container)
+
+
+
+- "frameworks" ~ templates
+    - certain way of doing things
+- APIs (Application Programmer Interface)
+    - set of calls / classes / operations you can used focused around some purpose
+
+
 
 <!-- Classes Examples .................................................................. -->
 <a name="classes"></a>
@@ -338,6 +651,9 @@ extending/reusing code
 
 #### prototype chain
 *JavaScript*
+
+#### singletons
+   - sharedInstance, defaultInstance, 
 
 <!-- IDE Examples .................................................................. -->
 <a name="IDE"></a>
@@ -359,6 +675,26 @@ extending/reusing code
 - syntax highlighting, auto-completion
 
 combine with command-line / OS calls
+
+
+
+
+<!--  .................................................................. -->
+## Concurrency / Parallelism
+
+#### processes
+
+#### threads
+
+#### asynchronous calls
+
+
+#### events
+   - message bus
+   - dispatch
+   - notification center
+   - 
+
 
 <!-- Collaborative Programming Examples .................................................................. -->
 <a name="VC"></a>
@@ -386,8 +722,8 @@ NASM, TASM, ASM, proprietary
 ```
 main: 
     MOV $R1,0x1234
-	MOV $R2,0xABCD
-	ADD $R1,$R2
+    MOV $R2,0xABCD
+   ADD $R1,$R2
 ```
 
 #### lower-level
@@ -450,7 +786,7 @@ XML
 <!-- comment -->
 ...
 <container>
-	<tagName attribute="value" />
+   <tagName attribute="value" />
 </container>
 ...
 ```
@@ -458,10 +794,19 @@ JSON/JSONP
 - good 1:1 relationship with internal objects
 ```
 ...
-	"property":[
-		{"key":"value"}
-	]
+   "property":[
+      {"key":"value"}
+   ]
 ...
+```
+YAML
+- human readable, 1:1 data-to-objects, complex referencing/indexing, spacing semantics
+```
+myobj &myObject
+    "A" : "val"
+    "B" : 5
+ref *myObject
+
 ```
 
 

@@ -495,13 +495,19 @@ internet           [~EB]            slower, bigger, cheaper
 #### main()
 main (or similar) is the entry point of a program.
 <br/>
-parameters can be passed to it via the OS or other programs
+parameters can be passed to it via the OS or other programs - _argument count_ and _argument values_ . 
 <br/>
 ```C
-// C, C#, Obj-C, C++, ..
+// C, Obj-C, C++, ..
 int main(int argc, char **argv){
    ...
    return 0;
+}
+```
+```C#
+static int Main(string[] args){
+	...
+	return 0;
 }
 ```
 ```JAVA
@@ -518,6 +524,7 @@ public static void main(String[] args){
 ```
 ```Python
 # Python
+#!/usr/bin/env python3
 def main(argv):
     ...
 ```
@@ -529,36 +536,47 @@ def main(argv):
 ### variable types
 
 #### primitives
-
+most basic building blocks
+```C
+int i = 9;               // 32 bit integer (signed)
+unsigned int nosign;     // 32 bit integer unsigned
+long j = 0x08FF009900;   // 64 bit integer (signed)
+long int higher;         // 64 bit integer (signed)
+short int small;         // 16 bit integer (signed)
+float num;               // 32 bit float ~6 useful digits
+double prec2;            // 64 bit float ~16 useful digits
+long double highPrec;    // 80,96,128 bit float 19~34 useful digits
+char letter;            // 8 bit character
+char *text;             // variable-length c-string
+char fixedText[10];     // fixed-length c-string
+BOOL bool;              // 8-bit boolean
+// no such thing as unsigned float
+// C does not have a short float
+```
+[C Types](http://en.wikipedia.org/wiki/C_data_types)
 #### pointers
+```C
+*
 
+```
 #### structs
+<!-- typedef lets you create aliases for things -->
+```C
+struct person {
+	char name[16];
+	int age;
+}
 
-### space
-- compiletime
-    - constants
-- runtime
-    - memory allocation
-- stack/heap
-    - stack grows based on functions calling functions
-    - heap grows as more memory is required to store objects
+// cleaner:
+typedef struct {
+	char name[16];
+	int age;
+}
 
+person richie;
+richie.name = "Richie";
+richie.age = 27;
 ```
----------
-CONSTANTS
----------
-PROGRAM
----------
-STACK
-v
-
-(trash)
-
-^
-HEAP
----------
-```
-
 #### main
 entry point for application
 
@@ -577,8 +595,57 @@ entry point for application
 #### foreach loop
 
 #### functions
+```
+int addInts(){
+	return 
+}
+void swapInts(int a){
+	
+}
+```
+
+### space
+- compiletime
+    - constants
+- runtime
+    - memory allocation
+- stack/heap
+    - stack grows based on functions calling functions
+    - heap grows as more memory is required to store objects
+<!-- trade off where the overhead goes, and tedium -->
+- cleanup
+	- manual: alloc, free
+	- 'manual' reference counting: retain, release, (autorelease)
+	- auto reference counting (ARC): reference code is injected by compiler at compile time
+	- garbage collecting: periodic reference counting
+```
+---------
+CONSTANTS
+---------
+PROGRAM
+---------
+STACK
+v
+
+(trash)
+
+^
+HEAP
+---------
+```
+
+##### memory management
+<!-- pointer / array equivalence -->
+```
+// double array
+
+```
 
 #### methods
+<!-- method and function = synonyms -->
+methods are functions that are oriented toward objects
+```
+```
 
 #### reserved words
 - can't use for variable/function names
@@ -587,6 +654,16 @@ entry point for application
 Ways to represent 'nothingness' or object does not exist
 <br/>
 null, NULL, nil, Nil, undefined
+
+#### functions as variables (and typedef)
+<!-- notice how cumbersome and tedius and confusing C can get -->
+```
+```
+
+#### void-star (and type-casting)
+```
+
+```
 
 <!-- Objective-C Examples .................................................................. -->
 <a name="ObjC"></a>
@@ -695,6 +772,18 @@ combine with command-line / OS calls
    - notification center
    - 
 
+
+## preprocessing
+
+### compiler directives
+
+#### import
+
+#### macros
+
+#### pragma
+
+#### if/def
 
 <!-- Collaborative Programming Examples .................................................................. -->
 <a name="VC"></a>

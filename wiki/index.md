@@ -484,7 +484,7 @@ RAM                [~32GB]           |
 HDD Cache          [~32MB]           |
 HDD                [~2TB]            |
 backup tape-drives [~100TB]          v
-internet           [~EB]            slower, bigger, cheaper
+internet           [~EB]            slower, bigger, cheap
 ```
 
 
@@ -504,10 +504,11 @@ int main(int argc, char **argv){
    return 0;
 }
 ```
-```C#
+```C
+// C#
 static int Main(string[] args){
-	...
-	return 0;
+    ...
+  return 0;
 }
 ```
 ```JAVA
@@ -538,54 +539,68 @@ def main(argv):
 #### primitives
 most basic building blocks
 ```C
-int i = 9;               // 32 bit integer (signed)
-unsigned int nosign;     // 32 bit integer unsigned
-long j = 0x08FF009900;   // 64 bit integer (signed)
-long int higher;         // 64 bit integer (signed)
-short int small;         // 16 bit integer (signed)
-float num;               // 32 bit float ~6 useful digits
-double prec2;            // 64 bit float ~16 useful digits
-long double highPrec;    // 80,96,128 bit float 19~34 useful digits
-char letter;            // 8 bit character
-char *text;             // variable-length c-string
-char fixedText[10];     // fixed-length c-string
-BOOL bool;              // 8-bit boolean
-// no such thing as unsigned float
-// C does not have a short float
+    int i = 9;                          // 32 bit integer (signed)
+    unsigned int nosign = -20;          // 32 bit integer unsigned
+    long j = 0x08FF009900;              // 64 bit integer (signed)
+    long int higher;                    // 64 bit integer (signed)
+    short int small = 0xFFFF;           // 16 bit integer (signed)
+    float num = 3.1415926;              // 32 bit float ~6 useful digits
+    double prec2 = 1.41421356237095048; // 64 bit float ~16 useful digits
+    long double highPrec = 1.1E-40;     // 80,96,128 bit float 19~34 useful digits
+    char letter = 'R';                  // 8 bit character
+    char *text = "hello buddy";         // variable-length c-string
+    char fixedText[10] = "3.141";       // fixed-length c-string
+    BOOL boolean = false;               // 8-bit boolean
+    // no such thing as unsigned float --- unsigned float
+    // C does not have a short float --- short float
 ```
 [C Types](http://en.wikipedia.org/wiki/C_data_types)
 #### pointers
+<!-- referencing, dereferencing --> 
 ```C
-*
-
+    int i;
+    int *j;
+    j = &i;
+    fprintf(stdout, "example");
+    printf("A) i: %d, j: %d \n",i,*j); // A) i: 7, j: 1
+    i = 5;
+    printf("B) i: %d, j: %d \n",i,*j); // B) i: 5, j: 5
+    *j = 9;
+    printf("C) i: %d, j: %d \n",i,*j); // C) i: 9, j: 9
 ```
 #### structs
 <!-- typedef lets you create aliases for things -->
 ```C
+// need to declare variable as "struct person variable;"
 struct person {
-	char name[16];
-	int age;
-}
+    char name[16];
+    int age;
+};
 
-// cleaner:
+// cleaner: declare variable as "person variable;"
 typedef struct {
-	char name[16];
-	int age;
-}
+    char name[16];
+    int age;
+} person;
 
-person richie;
-richie.name = "Richie";
-richie.age = 27;
+    person richie;
+    strcpy(richie.name,"Richie");
+    richie.age = 27;
+    printf("name: %s, age:%d \n",richie.name,richie.age);
 ```
 #### main
 entry point for application
-
-#### pass by value
-- primitives, structs
-
-#### pass by reference
-- arrays, objects
-
+```
+int main(int argc, char *argv) {
+    // argc is the argument count
+    // argv are the argument values - a list of cstrings
+    // first argv is command issued (or filename)
+    int i;
+    for(i=0;i<argc;++i){
+        printf("arg %d: %s \n",i,argv[i]);
+    }
+]
+```
 #### do while loop
 
 #### while loop
@@ -597,12 +612,18 @@ entry point for application
 #### functions
 ```
 int addInts(){
-	return 
+  return 
 }
 void swapInts(int a){
-	
+  
 }
 ```
+#### pass by value
+- primitives, structs
+
+#### pass by reference
+- arrays, objects
+
 
 ### space
 - compiletime
@@ -614,10 +635,10 @@ void swapInts(int a){
     - heap grows as more memory is required to store objects
 <!-- trade off where the overhead goes, and tedium -->
 - cleanup
-	- manual: alloc, free
-	- 'manual' reference counting: retain, release, (autorelease)
-	- auto reference counting (ARC): reference code is injected by compiler at compile time
-	- garbage collecting: periodic reference counting
+  - manual: alloc, free
+  - 'manual' reference counting: retain, release, (autorelease)
+  - auto reference counting (ARC): reference code is injected by compiler at compile time
+  - garbage collecting: periodic reference counting
 ```
 ---------
 CONSTANTS

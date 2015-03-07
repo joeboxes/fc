@@ -1,17 +1,23 @@
 # Coding 101
-**As simple as possible introduction/application of programming pragmatically applied to iOS programming**
+**As simple as possible introduction to /application of programming, pragmatically applied to iOS platform**
 <br />
 _There are lots of intricacies and technicalities, but without nitty-gritty details the summaries cover fair assumptions_
 <br />
 
 
-1) Binary/Computer Architecture/Data+Operations [white board]
-2) General Programming Overview/DIY-C programming [white board + laptops]
-3) DIY XCode + Swift Programming/Example App [laptops]
+# Schedule
+1. Binary/Computer Architecture/Data+Operations [white board]
+2. General Programming Overview/DIY-C programming [white board + laptops]
+3. DIY XCode + Swift Programming/Example App [laptops]
+<br />
 
 
-1. [universal concepts](#101)
-2. [C](#C)
+# Table of Contents
+
+1. [universal concepts](#101) [1](#LESSON1) [2](#LESSON2)
+2. [C](#C) [2](#LESSON2)
+3. [Swift](#SWIFT) [2](#LESSON3)
+
 3. [Obj-C](#ObjC)
 4. [inheritance](#classes)
 5. [IDE](#IDE)
@@ -20,9 +26,12 @@ _There are lots of intricacies and technicalities, but without nitty-gritty deta
 
 
 <!-- 101 .................................................................. -->
+<a name="LESSON1"></a>
 <a name="101"></a>
 ## universal concepts
 #### binary
+<!-- high and low voltages -->
+<!-- basic counting: 0, 1, 10, 11, 100, ... -->
 bit / nibble / octet / byte / word 
 <!-- defacto byte===8 bits -->
 <!-- use spacing or symbols for readability -->
@@ -30,7 +39,7 @@ bit / nibble / octet / byte / word
 0 or 1, 4 bits, 8 bits, *8 bits, *32-bits
 ```
 <!-- nybble -->
-MSB...LSB
+MSB...LSB <!-- 'significance' -->
 <!-- little vs *big endian -->
 <br/>
 _All counting starts at 0_
@@ -75,7 +84,9 @@ binary = base 2 =  0% = 0b
 <br/>
 ```EX: 0b101010```
 <br/>
+<!-- colors: 0-255, #AABBCC -->
 hexidecimal = base 16 = hex = 0x = #
+<!-- try counting: 0,1,2,...8,9,A,B,C,D,E,F,10... -->
 <br/>
 ```EX: 0x2A```
 <br/>
@@ -113,10 +124,10 @@ hexidecimal = base 16 = hex = 0x = #
 
 
 
-
+<!-- what does some set of bits represent? -->
 _we decide what the meanings of the bits are_
 
-
+<!-- deal with bits in sets of 8 (coming up) -->
 #### primitive types
 
 boolean : true / false
@@ -130,11 +141,17 @@ integer: whole numbers
 ```
 0b00001010 (10)
 0b10101010 (170)
+
+   0b00001010 (10)
+ + 0b10101010 (170)
+=  0b10110100 (180)
 ```
 <br/>
+<!-- how would you tell if a binary number is even or odd ? (example of some LL operations being easy) -->
 
 unsigned: always considered positive
 <br/>
+<!-- simple sign example vs 2s compliment -->
 signed: 2s compliment signing (if negative, flip the bits + add 1)
 ```
 0b00001010 (+10)
@@ -148,13 +165,27 @@ signed: 2s compliment signing (if negative, flip the bits + add 1)
 <br/>
 
 <!-- scientific notation -->
-floating point: allow to use wide range of numbers, different sections of bits mean different things, certain values have specific meanings (+inf,-inf,NaN,+0,-0)
+floating point: allow to use wide range of numbers, different sections of bits mean
+<!-- represent smaller number in terms of larger number -- common exponent -->
+```
++1.141E6 + +2.694E-4
+1,141,000 + 0.0002694
+   1141000
+ + 0000000.0002694E6
+=  1141000.0002694E6
+(truncate/rounding here)
+=  1.14100002694E6
+=  1,141,000.0002694
+```
+<!-- might not have enough bits to keep all precision) -->
+different things, certain values have specific meanings (+inf,-inf,NaN,+0,-0)
 <!-- http://steve.hollasch.net/cgindex/coding/ieeefloat.html -->
 ```
 IEEE 32-bit FP:
-[sign|exponent|mantissa]
-      3|322 2222 2|222 1111 1111 1000 0000 0000
+[sign|exponent|mantissa] [1|8|23]
+      3|322 2222 2|222 1111 1111 1100 0000 0000
       1|098 7654 3|210 9876 5432 1098 7654 3210
+-------------------------------------------------      
       s|eee eeee e|mmm mmmm mmmm mmmm mmmm mmmm
    0: s|000 0000 0|000 0000 0000 0000 0000 0000
  inf: s|111 1111 1|000 0000 0000 0000 0000 0000
@@ -178,6 +209,7 @@ ASCII (7 bits) / Extended ASCII (8 bits), Unicode (16 bits)
 ...
 0b01111010 (122) == 'z'
 ```
+<!-- American Standard Code for Information Interchange -->
 [ASCII Table](http://www.asciitable.com/index/asciifull.gif)
 <!-- ![ASCII](http://www.asciitable.com/index/asciifull.gif) -->
 <br/>
@@ -190,7 +222,7 @@ strings
 ```
 <br/>
 
-
+<!-- DIY -->
 #### bitwise operations
 <!-- bit masking -->
 NOT: ~
@@ -221,7 +253,7 @@ SHIFT-LEFT: <<
 <<2 0b010101
 =   0b010100
 ```
-SHIFT-RIGHT: >>
+SHIFT-RIGHT: >> (>>> arithmetic / sign extend)
 ```
 >>2 0b010101
 =   0b000101
@@ -241,10 +273,12 @@ multiplication *
 9 * 5   // 45
 ```
 modulo (remainder) %
+<!-- 17%2==0 18%2==1 19%2==0 ... -->
 ```
 9 % 5   // 4
 ```
 increment (pre/post) ++
+<!-- op(++b) ne op(b++)
 ```
 b = 5
 ++b   // b = 6
@@ -277,7 +311,7 @@ false ||  true  ==  true
  true || false  ==  true 
  true ||  true  ==  true 
     9 ||     4  ==  true (0b00001001(!=0) || 0b00000100(!=0) == true)
-    5 &&     0  == false (0b00000101(!=0) && 0b00000000(==0) == true)
+    5 ||     0  == false (0b00000101(!=0) && 0b00000000(==0) == true)
 ```
 <br/>
 EQ ==
@@ -326,7 +360,11 @@ LTE <=
     5 <=    5  ==  true 
 ```
 <br/>
-
+negate - (unary)
+```
+a = -b
+```
+<br/>
 #### assignment
 <!-- := -->
 ASSIGN =
@@ -350,12 +388,48 @@ b = a       # a=9,b=9
 #### combinatorics
 +=, -=, /=, *=, %=, ^=, |=, &=, <<=, >>=
 
-#### unary other
-negate -
+
+<a name="LESSON2"></a>
+# LESSON 2:
+
+### Computer
+- CPU (registers, ALU)
+- memory (volatile)
+- storage (long term - CD,HDD)
+- peripherals (keyboard,mouse,monitor[graphics card])
+- Motherboard connects all these components <!-- BUS -->
+<!-- graphics cards are computers in own right -->
+
+### RAM
+giant 1-dimensional list of bits
 ```
-a = -b
+...011010110101000010101010001...
 ```
+<!-- random vs sequential -->
+<!-- can't address single bit : shift + mask -->
+Internally, memory is actually 'chunk'ed into small groupings, because having a unique address for every bit of RAM is wasteful, when compared to referencing say, 8-bit-chunks at a time. Almost never does a programmer care about only a single bit -- typically you would deal with objects that are at least dozens of bits in size.
 <br/>
+<br/>
+<!-- may have much less memory, but OS abstracts that from us -->
+**"Address Space"**: Set of all addresses that can be referenced, modern systems: 4GB+ (4294967296 bytes, max location: 0xFFFFFFFF), smallest addressable space = &lowast;byte
+```
+|   RAM VALUE  | < RAM ADDRESS
+|      ...     | < ...
+|  0b00001000  | < 0x06FF
+|  0b00001000  | < 0x0700
+|  0b01001000  | < 0x0701
+|  0b11111111  | < 0x0702
+|      ...     | < ...
+|  0b00000000  | < 0x07FF
+|  0b00000000  | < 0x0800 --         EX 32 bit integer starting at index 0x0800
+|  0b00010010  | < 0x0801  | ------\ (binary: 0b0100101101011010000111)
+|  0b11010110  | < 0x0802  | ------/ (hex: 0x12D687)
+|  0b10000111  | < 0x0803 --         (decimal: 1234567)
+|  0b00000000  | < 0x0804
+|      ...     | < ...
+```
+
+<!-- what is a variable? location + value -->
 address &
 ```
 &variable      # this gets the address (location in memory of a variable), eg 0x7fd0 80cc 5ff0
@@ -365,7 +439,13 @@ pointer *
 ```
 *pointer       # pointer is a variable that holds the address of a variable, effectively pointing to it
 ```
-
+<!-- optimimal use of memory, single 'object' multiple variables pointing to it -->
+dereference * (also asterisk)
+```
+*pointer       # get the value of the object being pointed at
+```
+<!-- give me the value of the object at the address of my value = of the object I'm pointing at -->
+<!--
 #### tertiary other
 conditional ?:
 <br/>
@@ -373,7 +453,6 @@ conditional ?:
 ```
 (a==b) ? 5 : 9
 ```
-
 #### exceptions
 **overflow** : reach a number too large to be represented
 <br/>
@@ -381,6 +460,7 @@ conditional ?:
 <br/>
 **defined** : system/user defined, used to change flow of program (eg list length is zero)
 <br/>
+-->
 
 #### collections
 **array** : ordered list of values
@@ -408,104 +488,13 @@ hash["key"] = "value"
 ```
 operations: insert, update, delete
 
-### Computer
-- CPU (registers, ALU)
-- memory (volatile)
-- storage (long term)
-- peripherals (keyboard,mouse,monitor[graphics card])
-- Motherboard connects all these components
-
-### RAM
-giant 1-dimensional list of bits
-```
-...011010110101000010101010001...
-```
-Internally, memory is actually 'chunk'ed into small groupings, because having a unique address for every bit of RAM is wasteful, when compared to referencing say, 8-bit-chunks at a time. Almost never does a programmer care about only a single bit -- typically you would deal with objects that are at least dozens of bits in size.
-<br/>
-<br/>
-<!-- may have much less memory, but OS abstracts that from us -->
-**"Address Space"**: Set of all addresses that can be referenced, modern systems: 4GB+ (4294967296 bytes, max location: 0xFFFFFFFF), smallest addressable space = &lowast;byte
-```
-|   RAM VALUE  | < RAM ADDRESS
-|      ...     | < ...
-|  0b00001000  | < 0x06FF
-|  0b00001000  | < 0x0700
-|  0b01001000  | < 0x0701
-|  0b11111111  | < 0x0702
-|      ...     | < ...
-|  0b00000000  | < 0x07FF
-|  0b00000000  | < 0x0800 --         EX 32 bit integer starting at index 0x0800
-|  0b00010010  | < 0x0801  | ------\ (binary: 0b0100101101011010000111)
-|  0b11010110  | < 0x0802  | ------/ (hex: 0x12D687)
-|  0b10000111  | < 0x0803 --         (decimal: 1234567)
-|  0b00000000  | < 0x0804
-|      ...     | < ...
-```
 
 #### data
 The data at a particular address can be interpreted as any type of data object (eg int, float, string), depending on the variable used to point at it. The data itself could be used to store the address of another variable, or the address to an address to an address...
 
 #### instructions
 The data at an address can be interpreted as one of various (low-level) instructions, from simple statements like add the data from two addresses and put the result into a third address. The data could also be the address of a statement to be executed, or an offset to let the program counter 'jump' to a nearby memory location.
-
-<!-- arithmetic and logic unit -->
-#### ALU
-<!-- very close and very fast -->
-operates using small set of local registers (32~64), only some of which may be available for a program to use.
-<br />
-```
-    +----------+     +----------+      \    \    /    /            |
- A: | xxxxxxxx |  B: | yyyyyyyy |       \    |  |    /         [ CLOCK]---..
-    +----------+     +----------+        \   |  |   /
-         |                 |              |  |  |  |
-         ------\   /--------              |  |  |  |
-                [x]--------------------- [ OPERATION ]---..
-                 |                             ^
-                 v                             |              |   |   |  
-    +-------------------+     +-------------------+     +-------------------+
-  D:| zzzzzzzz zzzzzzzz |  PC:| xxxxxxxx xxxxxxxx |  IR:| xxxxxxxx xxxxxxxx |
-    +-------------------+     +-------------------+     +-------------------+
-           |   |   |                 |   |   |                |   |   |
-```
-<br />
-operation registers: inputs to be used in an operation
-<br />
-accumulator register: result of operation
-<br />
-program counter: keeps track of current location in program. You can jump around in 
-<br />
-<!-- 0s and 1s of IR correspond to circuitry to de/activate appropriate channels -->
-instruction register: keeps track of the currecnt instruction
-
-#### code chain
-```
-                           (more general)
-visual programming          ^ more human-friendly   
-human-readable languages    ^                          v
-[compiler / interpreter]    ^                          v
-assembly code               ^                          v
-machine code                    more control/exactness v
-                            (more HW-circuit-correlation)
-```
-
-#### caching
-It takes time to access data, so instead of throwing away data that might be used again (in the near future), why not keep it around if you have some space to put it locally?
-```
-CPU registers      [words]          faster, smaller, expensive
-CPU L1 cache       [~8MB]            ^
-CPU L2 cache       [~16MB]           |
-CPU L3 cache       [~16MB]           |
-RAM                [~32GB]           |
-HDD Cache          [~32MB]           |
-HDD                [~2TB]            |
-backup tape-drives [~100TB]          v
-internet           [~EB]            slower, bigger, cheap
-```
-
-
-- cold-start
-- cache-hit
-- cache-miss
+<!-- instructions are very HW dependent -->
 
 #### main()
 main (or similar) is the entry point of a program.
@@ -570,14 +559,35 @@ most basic building blocks
     // C does not have a short float --- short float
 ```
 [C Types](http://en.wikipedia.org/wiki/C_data_types)
-#### pointers
+
+
+#### example compile/run
+main: entry point for application - hello world
+ > example0.c
+ 
+```C
+int main(int argc, char **argv) {
+    // argc is the argument count
+    // argv are the argument values - a list of cstrings
+    // first argv is command issued (or filename)
+    int i;
+    for(i=0; i<argc; ++i){
+        printf("arg %d: %s \n",i,argv[i]);
+    }
+}
+```
+
+#### example compile/run
+pointers: multiple references to same object
+ > example1.c
+
 <!-- referencing, dereferencing --> 
 ```C
     int i;
     int *j;
     j = &i;
-    fprintf(stdout, "example");
-    printf("A) i: %d, j: %d \n",i,*j); // A) i: 7, j: 1
+    fprintf(stdout, "example1: \n");
+    printf("A) i: %d, j: %d \n",i,*j); // A) i: 0, j: 0
     i = 5;
     printf("B) i: %d, j: %d \n",i,*j); // B) i: 5, j: 5
     *j = 9;
@@ -603,41 +613,6 @@ typedef struct {
     richie.age = 27;
     printf("name: %s, age:%d \n",richie.name,richie.age);
 ```
-#### main
-entry point for application
-```
-int main(int argc, char *argv) {
-    // argc is the argument count
-    // argv are the argument values - a list of cstrings
-    // first argv is command issued (or filename)
-    int i;
-    for(i=0;i<argc;++i){
-        printf("arg %d: %s \n",i,argv[i]);
-    }
-]
-```
-#### do while loop
-
-#### while loop
-
-#### for loop
-
-#### foreach loop
-
-#### functions
-```
-int addInts(){
-  return 
-}
-void swapInts(int a){
-  
-}
-```
-#### pass by value
-- primitives, structs
-
-#### pass by reference
-- arrays, objects
 
 
 ### space
@@ -677,32 +652,138 @@ HEAP
 
 ```
 
-#### methods
-<!-- method and function = synonyms -->
-methods are functions that are oriented toward objects
-```
-```
-
 #### reserved words
 - can't use for variable/function names
 
-#### NULL
-Ways to represent 'nothingness' or object does not exist
-<br/>
-0, null, NULL, nil, Nil, undefined
 
-#### functions as variables (and typedef)
-<!-- notice how cumbersome and tedius and confusing C can get -->
+
+
+<a name="LESSON3"></a>
+# LESSON 3:
+
+# xcode intro
+
+
+<a name="SWIFT"></a>
+## SWIFT
+
+- app lifecycle
+
+- simple examples
+
+
+#### do while loop
+
+#### while loop
+
+#### for loop
+
+#### foreach loop
+
+#### functions
 ```
+int addInts(){
+  return 
+}
+void swapInts(int a){
+  
+}
+```
+#### pass by value
+- primitives, structs
+
+#### pass by reference
+- arrays, objects
+
+
+<!-- computer is very stupid: it will do exactly exactly the instruction you tell it, it can't read your intentions, to the bitter end -->
+
+
+
+does that
+>! Spoiler text
+do something?
+
+
+
+
+
+# DROPPED FOR MORE INVOLVED
+
+
+
+1. [universal concepts](#101)
+2. [C](#C)
+3. [Obj-C](#ObjC)
+4. [inheritance](#classes)
+5. [IDE](#IDE)
+6. [VC](#VC)
+7. [Languages](#languages)
+
+
+
+
+<!-- arithmetic and logic unit -->
+#### ALU
+<!-- very close and very fast -->
+operates using small set of local registers (32~64), only some of which may be available for a program to use.
+<br />
+```
+    +----------+     +----------+      \    \    /    /            |
+ A: | xxxxxxxx |  B: | yyyyyyyy |       \    |  |    /         [ CLOCK]---..
+    +----------+     +----------+        \   |  |   /
+         |                 |              |  |  |  |
+         ------\   /--------              |  |  |  |
+                [x]--------------------- [ OPERATION ]---..
+                 |                             ^
+                 v                             |              |   |   |  
+    +-------------------+     +-------------------+     +-------------------+
+  D:| zzzzzzzz zzzzzzzz |  PC:| xxxxxxxx xxxxxxxx |  IR:| xxxxxxxx xxxxxxxx |
+    +-------------------+     +-------------------+     +-------------------+
+           |   |   |                 |   |   |                |   |   |
+```
+<br />
+operation registers: inputs to be used in an operation
+<br />
+accumulator register: result of operation
+<br />
+program counter: keeps track of current location in program. You can jump around in 
+<br />
+<!-- 0s and 1s of IR correspond to circuitry to de/activate appropriate channels -->
+instruction register: keeps track of the currecnt instruction
+
+#### code chain
+```
+                           (more general)
+visual programming          ^ more human-friendly   
+human-readable languages    ^                          v
+[compiler / interpreter]    ^                          v
+assembly code               ^                          v
+machine code                    more control/exactness v
+                            (more HW-circuit-correlation)
 ```
 
-#### void-star (and type-casting)
+#### caching
+It takes time to access data, so instead of throwing away data that might be used again (in the near future), why not keep it around if you have some space to put it locally?
 ```
-void* pointer;
-int original = 0x1234567890;
-pointer = &original;
-float floatVal = (float)pointer;
+CPU registers      [words]          faster, smaller, expensive
+CPU L1 cache       [~8MB]            ^
+CPU L2 cache       [~16MB]           |
+CPU L3 cache       [~16MB]           |
+RAM                [~32GB]           |
+HDD Cache          [~32MB]           |
+HDD                [~2TB]            |
+backup tape-drives [~100TB]          v
+internet           [~EB]            slower, bigger, cheap
 ```
+
+
+- cold-start
+- cache-hit
+- cache-miss
+
+
+
 
 <!-- Objective-C Examples .................................................................. -->
 <a name="ObjC"></a>
@@ -938,28 +1019,32 @@ ref *myObject
 ```
 
 
-
-<!-- computer is very stupid: it will do exactly exactly the instruction you tell it, it can't read your intentions, to the bitter end -->
-
-
-
-does that
->! Spoiler text
-do something?
+#### methods
+<!-- method and function = synonyms -->
+methods are functions that are oriented toward objects
+```
+```
 
 
 
+#### NULL
+Ways to represent 'nothingness' or object does not exist
+<br/>
+0, null, NULL, nil, Nil, undefined
+
+#### functions as variables (and typedef)
+<!-- notice how cumbersome and tedius and confusing C can get -->
+```
+```
+
+#### void-star (and type-casting)
+```
+void* pointer;
+int original = 0x1234567890;
+pointer = &original;
+float floatVal = (float)pointer;
+```
 
 
-# DROPPED FOR MORE INVOLVED
 
-
-
-1. [universal concepts](#101)
-2. [C](#C)
-3. [Obj-C](#ObjC)
-4. [inheritance](#classes)
-5. [IDE](#IDE)
-6. [VC](#VC)
-7. [Languages](#languages)
 

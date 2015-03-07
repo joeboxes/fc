@@ -1,5 +1,23 @@
 # git.md
 
+### installing
+#### debian
+```
+sudo apt-get install git
+```
+#### MAC:
+```
+http://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+```
+
+### git repo from existing public
+```
+# find clone URL from github
+git clone git@github.com:accountNameHere/repoNameHere.git
+cd repoNameHere
+```
+
+
 ### add ssh keys
 ```
 ssh-keygen
@@ -22,11 +40,6 @@ git commit -m"added files"
 git push origin master
 ```
 
-### git repo from existing
-```
-# find clone URL from github
-git clone git@github.com:accountNameHere/repoNameHere.git
-```
 
 
 ### pulling

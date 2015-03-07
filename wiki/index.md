@@ -4,6 +4,12 @@
 _There are lots of intricacies and technicalities, but without nitty-gritty details the summaries cover fair assumptions_
 <br />
 
+
+1) Binary/Computer Architecture/Data+Operations [white board]
+2) General Programming Overview/DIY-C programming [white board + laptops]
+3) DIY XCode + Swift Programming/Example App [laptops]
+
+
 1. [universal concepts](#101)
 2. [C](#C)
 3. [Obj-C](#ObjC)
@@ -11,6 +17,7 @@ _There are lots of intricacies and technicalities, but without nitty-gritty deta
 5. [IDE](#IDE)
 6. [VC](#VC)
 7. [Languages](#languages)
+
 
 <!-- 101 .................................................................. -->
 <a name="101"></a>
@@ -53,6 +60,8 @@ _All counting starts at 0_
 | METRIC NAME | PREFIX |     SIZE     |        LONG          |
 |-------------|--------|--------------|----------------------|
 | kilobyte | kB | 1E3 bytes | 1000 bytes |
+
+
 | megabyte | MB | 1E6 bytes | 1000000 bytes |
 | gigabyte | GB | 1E9 bytes | 1000000000 bytes |
 | terabyte | TB | 1E12 bytes | 1000000000000 bytes |
@@ -399,6 +408,12 @@ hash["key"] = "value"
 ```
 operations: insert, update, delete
 
+### Computer
+- CPU (registers, ALU)
+- memory (volatile)
+- storage (long term)
+- peripherals (keyboard,mouse,monitor[graphics card])
+- Motherboard connects all these components
 
 ### RAM
 giant 1-dimensional list of bits
@@ -674,7 +689,7 @@ methods are functions that are oriented toward objects
 #### NULL
 Ways to represent 'nothingness' or object does not exist
 <br/>
-null, NULL, nil, Nil, undefined
+0, null, NULL, nil, Nil, undefined
 
 #### functions as variables (and typedef)
 <!-- notice how cumbersome and tedius and confusing C can get -->
@@ -683,7 +698,10 @@ null, NULL, nil, Nil, undefined
 
 #### void-star (and type-casting)
 ```
-
+void* pointer;
+int original = 0x1234567890;
+pointer = &original;
+float floatVal = (float)pointer;
 ```
 
 <!-- Objective-C Examples .................................................................. -->
@@ -758,10 +776,10 @@ extending/reusing code
 ## IDE
 *Integrated Development Environment*
 
-#### XCode
+#### XCode vs AppCode
 
 
-#### Eclipse
+#### Eclipse vs Android Studio
 
 #### text editors / alternatives
 **Notepad**
@@ -921,6 +939,7 @@ ref *myObject
 
 
 
+<!-- computer is very stupid: it will do exactly exactly the instruction you tell it, it can't read your intentions, to the bitter end -->
 
 
 
@@ -929,4 +948,18 @@ does that
 do something?
 
 
+
+
+
+# DROPPED FOR MORE INVOLVED
+
+
+
+1. [universal concepts](#101)
+2. [C](#C)
+3. [Obj-C](#ObjC)
+4. [inheritance](#classes)
+5. [IDE](#IDE)
+6. [VC](#VC)
+7. [Languages](#languages)
 

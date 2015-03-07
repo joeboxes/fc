@@ -29,6 +29,23 @@ git clone git@github.com:accountNameHere/repoNameHere.git
 ```
 
 
+### pulling
+
+
+### changing: adding/removing
+
+
+### pushing
+
+
+### branching
+
+
+
+### merging
+
+
+
 
 
 

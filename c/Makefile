@@ -1,0 +1,7 @@
+# makefile
+
+default: 
+	# 
+
+clean:
+	# 

@@ -567,9 +567,6 @@ main: entry point for application - hello world
  
 ```C
 int main(int argc, char **argv) {
-    // argc is the argument count
-    // argv are the argument values - a list of cstrings
-    // first argv is command issued (or filename)
     int i;
     for(i=0; i<argc; ++i){
         printf("arg %d: %s \n",i,argv[i]);
@@ -595,6 +592,7 @@ pointers: multiple references to same object
 ```
 #### structs
 <!-- typedef lets you create aliases for things -->
+<!-- structs are just larger blocks of memory -->
 ```C
 // need to declare variable as "struct person variable;"
 struct person {
@@ -614,9 +612,10 @@ typedef struct {
     printf("name: %s, age:%d \n",richie.name,richie.age);
 ```
 
-
-### space
+<!-- diagram of RAM -->
+### allocated space
 - compiletime
+    - program instructions
     - constants
 - runtime
     - memory allocation
@@ -645,15 +644,101 @@ HEAP
 ---------
 ```
 
-##### memory management
-<!-- pointer / array equivalence -->
-```
-// double array
+#### example compile/run
+pointer referencing (location + value) and memory management (allocation, freeing)
+ > example2.c
 
-```
+<!-- ? --> 
+```C
+int main(int argc, char **argv) {
+    int i;
+  printf("MAIN\n");
+  // show input arguments to program
+  for (i=0; i<argc; ++i){
+    printf("argv[%d]: %s \n",i,argv[i]);
+  }
+    
+  // show addressing
+  int variable; // integer
+  int *pointer; // pointer to an integer
+    pointer = &variable; // point to same location
+    
+  printf("\nCHECK A:\n");
+  printf("variable address: %p \n", &variable); // 0xX...X
+  printf("variable value: %d \n", variable); // 0
+  printf("pointer address: %p \n", &pointer); // 0xX...X
+  printf("pointer value: %p (%ld == %lx) \n", pointer,pointer,pointer); // 0xX...X
+  printf("pointer reference value: %d \n", *pointer); // 0
 
-#### reserved words
+  variable = 5;
+  
+  printf("\nCHECK B:\n");
+  printf("variable address: %p \n", &variable); // 0xX...X
+  printf("variable value: %d \n", variable); // 5
+  printf("pointer address: %p \n", &pointer); // 0xX...X
+  printf("pointer value: %p (%ld == %lx) \n", pointer,pointer,pointer); // 0xX...X
+  printf("pointer reference value: %d \n", *pointer); // 5
+  
+  *pointer = 9;
+
+  printf("\nCHECK C:\n");
+  printf("variable address: %p \n", &variable); // 0xX...X
+  printf("variable value: %d \n", variable); // 9
+  printf("pointer address: %p \n", &pointer); // 0xX...X
+  printf("pointer value: %p (%ld == %lx) \n", pointer,pointer,pointer); // 0xX...X
+  printf("pointer reference value: %d \n", *pointer); // 9
+
+
+  // indexing
+  printf("\narray indexing:\n");
+  int list[] = {1,2,3,4};
+  int len = 5; // should be 4
+  for(i=0;i<len;++i) {
+    pointer = &list[i];
+    printf("(%d) [%p] = %d\n", i, pointer, *pointer);
+  }
+  printf("^ accessing values post array end ^\n");
+  printf("...\n");
+
+  // memory management - int
+  printf("\n dynamic int array\n");
+  pointer = NULL;
+  len = 10;
+  pointer = (int*) malloc( sizeof(int)*len );
+  for(i=0;i<len;++i) {
+    printf("pointer[%d] = [%p] = %d\n", i, &pointer[i], pointer[i]);
+  }
+  free(pointer);
+  pointer = NULL;
+
+  // memory management - double
+  printf("\n dynamic double array\n");
+  double *pointerDouble = NULL;
+  len = 10;
+  pointerDouble = (double*) malloc( sizeof(double)*len ); // vs calloc
+  for(i=0;i<len;++i) {
+    printf("pointer[%d] = [%p] = %lf\n", i, &pointerDouble[i], pointerDouble[i]);
+  }
+  free(pointerDouble);
+    pointer = NULL;
+
+  printf("...\n");
+
+  // success
+  return 0;
+}
+```
+<!-- SEGV -->
+<!-- typecasting -->
+<!-- setting pointers to NULL when done -->
+
+### reserved words
 - can't use for variable/function names
+```
+ int 4chan; // can't start with number
+ double for; // for is a reserved word
+ double For; // case sensitive, For is valid
+```
 
 
 
@@ -663,387 +748,300 @@ HEAP
 
 # xcode intro
 
+- interface
+    - left: file, compile & run feedback,  <!-- source code, images, storyboards/xib, sounds, config files -->
+    - center: source <!-- code, image, config -->
+    - right: attributes of left/center object
+    - bottom: console, feedback, debugging
+    - top-top: toolbar: settings, targets, run/stop
 
 <a name="SWIFT"></a>
 ## SWIFT
+<!-- swift => obj-c => code -->
+<!-- main.c 'under the hood' -->
+<!--  -->
 
-- app lifecycle
+- app lifecycle:
+    - start : application(application:didFinishLaunchingWithOptions:)
+    - inactive : applicationWillResignActive(application) - (phonecall, message, on way to BG)
+    - to background: applicationDidEnterBackground(application:)
+    - from background : applicationWillEnterForeground(application)
+    - to active : applicationDidBecomeActive(application:)
+    - exit : applicationWillTerminate(application:)
 
+<!-- controller & view lifecycles -->
+<!-- MVC design => keep as seperate as possible (encapsulate) -->
+
+<!-- show steps: Info(plist)=>Main.storyboard=>ViewController.swift (window) -->
 - simple examples
 
+#### variables
+```
+var myVariable:Int = 5
+myVariable = 9
+```
+
+#### constants
+```
+let MY_CONSTANT:Float = 3.141
+```
+
+#### if conditional
+```
+// IF + ELSE IF + ELSE
+i = 2
+if (i==0) {
+    println("i==0")
+} else if (i==1) {
+    println("i==1")
+} else {
+    println("i==\(i)")
+}
+```
+
+#### switch
+```
+var char:String = "A"
+switch (char) {
+    case "A":
+        println("char == A");
+    case "B":
+        println("char == B");
+    default:
+        println("unknown value");
+}
+```
 
 #### do while loop
-
+```
+var len:Int = 0
+var i:Int = 0
+do {
+    println("i: \(i)")
+    ++i
+} while (i<len)
+```
+<!-- ensure loop is run at least once -->
 #### while loop
+```
+var len:Int = 5
+var i:Int = 0
+while (i<len) {
+    println("i: \(i)")
+    ++i
+}
+```
 
 #### for loop
-
-#### foreach loop
-
-#### functions
 ```
-int addInts(){
-  return 
-}
-void swapInts(int a){
-  
-}
-```
-#### pass by value
-- primitives, structs
-
-#### pass by reference
-- arrays, objects
-
-
-<!-- computer is very stupid: it will do exactly exactly the instruction you tell it, it can't read your intentions, to the bitter end -->
-
-
-
-does that
->! Spoiler text
-do something?
-
-
-
-
-
-# DROPPED FOR MORE INVOLVED
-
-
-
-1. [universal concepts](#101)
-2. [C](#C)
-3. [Obj-C](#ObjC)
-4. [inheritance](#classes)
-5. [IDE](#IDE)
-6. [VC](#VC)
-7. [Languages](#languages)
-
-
-
-
-<!-- arithmetic and logic unit -->
-#### ALU
-<!-- very close and very fast -->
-operates using small set of local registers (32~64), only some of which may be available for a program to use.
-<br />
-```
-    +----------+     +----------+      \    \    /    /            |
- A: | xxxxxxxx |  B: | yyyyyyyy |       \    |  |    /         [ CLOCK]---..
-    +----------+     +----------+        \   |  |   /
-         |                 |              |  |  |  |
-         ------\   /--------              |  |  |  |
-                [x]--------------------- [ OPERATION ]---..
-                 |                             ^
-                 v                             |              |   |   |  
-    +-------------------+     +-------------------+     +-------------------+
-  D:| zzzzzzzz zzzzzzzz |  PC:| xxxxxxxx xxxxxxxx |  IR:| xxxxxxxx xxxxxxxx |
-    +-------------------+     +-------------------+     +-------------------+
-           |   |   |                 |   |   |                |   |   |
-```
-<br />
-operation registers: inputs to be used in an operation
-<br />
-accumulator register: result of operation
-<br />
-program counter: keeps track of current location in program. You can jump around in 
-<br />
-<!-- 0s and 1s of IR correspond to circuitry to de/activate appropriate channels -->
-instruction register: keeps track of the currecnt instruction
-
-#### code chain
-```
-                           (more general)
-visual programming          ^ more human-friendly   
-human-readable languages    ^                          v
-[compiler / interpreter]    ^                          v
-assembly code               ^                          v
-machine code                    more control/exactness v
-                            (more HW-circuit-correlation)
-```
-
-#### caching
-It takes time to access data, so instead of throwing away data that might be used again (in the near future), why not keep it around if you have some space to put it locally?
-```
-CPU registers      [words]          faster, smaller, expensive
-CPU L1 cache       [~8MB]            ^
-CPU L2 cache       [~16MB]           |
-CPU L3 cache       [~16MB]           |
-RAM                [~32GB]           |
-HDD Cache          [~32MB]           |
-HDD                [~2TB]            |
-backup tape-drives [~100TB]          v
-internet           [~EB]            slower, bigger, cheap
-```
-
-
-- cold-start
-- cache-hit
-- cache-miss
-
-
-
-
-<!-- Objective-C Examples .................................................................. -->
-<a name="ObjC"></a>
-## Obj-C
-### objects
-- operations / interactions
-
-
-#### class vs instance
-
-
-<!-- closure = env+control -->
-#### blocks
-
-pseudo-objects (NSInteger, CGFloat, NSNumber, ...)
-
-
-#### complex equality
-address? (exact object)
-equalness of separate objects
-
-### main
-- 
-```
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([DIAppDelegate class]));
+var len:Int = 5
+var i:Int = 0
+for (i=0; i<len; ++i) {
+    println("i: \(i)")
+    if (i==2) {
+        break; // stop early
     }
 }
 ```
-AppAdelegate
+
+#### for-in loop
 ```
-...
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
--(void)applicationWillEnterForeground:(UIApplication *)application;
--(void)applicationDidEnterBackground:(UIApplication *)application;
--(void)applicationWillTerminate:(UIApplication *)application;
-...
+var stringList:Array = ["A","B","C","D","E"]
+for (index, value) in enumerate(stringList) {
+    if (index==1) {
+        continue; // skip
+    }
+    println("\(index) = \(value)")
+}
 ```
 
-### libraries
+#### functions
+_no parameters, no return value_
+```
+func printHelloWorld (Void) -> Void { // declaration / definition
+    println("Hello World")
+}
+
+printHelloWorld() // call
+```
+<!-- don't need to specify voids -->
+_parameters and return value_
+```
+func addIntegers (let integer a:Int,let toInteger b:Int) -> Int {
+    var added:Int;
+    added = a + b
+    return added
+}
+
+var numberA:Int = 4;
+var numberB:Int = 5;
+var numberC:Int = addIntegers(integer:numberA, toInteger:numberB)
+```
+<!-- don't need to specify let, external param names-->
+
+_functions as variables_
+```
+var functionVariable:(Int,Int)->Int = addIntegers
+var result:Int = functionVariable(1,2)
+```
+
+_pass by reference_
+```
+func addIntegersByReference (inout result c:Int, inout integer a:Int, inout toInteger b:Int) -> Void {
+    c = a + b
+    a = 0
+    b = 0
+}
+
+addIntegersByReference(result: &localC, integer: &localA, toInteger: &localB)
+```
+
+*example: random number*
+```
+var randomInt:Int = Int(arc4random_uniform(100)) // random number in [0,99]
+println("random number: \(randomInt)")
+```
+
+#### objects & methods
+_constants vs optional vs auto-unwrapped optional
+```
+
+```
+<!-- auto unwrapped is closest think to a pointer -->
+
+#### pass by value
+- primitives, structs, arrays*
+
+#### pass by reference
+- objects (implicitly)
+
+#### classes & inheritence & encapsulation
+<!-- code reuse -->
+_base class_
+```
+class Animal {
+    var name:String!
+    private var description:String! // println
+    private var age:Int
+    var sound:String!
+    init (name:String="[Unnamed]", desc:String="An Animal", age:Int=0, sound:String="Garble") {
+        self.name = name
+        self.description = desc
+        self.age = age
+        self.sound = sound
+    }
+    deinit {
+        name = nil
+        description = nil
+        age = -1
+        sound = nil
+    }
+    func speak (Void) -> Void {
+        println("\(name): \(sound)")
+    }
+    final func addYear(Void) -> Void {
+        age += 1
+    }
+}
+```
+<!-- designated / convenience initializers -->
+_inherited class_
+```
+class Cat: Animal {
+    private var wiskerCount:Int;
+    init (name:String="Kitty", desc:String="A Kitty Cat", age:Int=9, sound:String="Meow", wiskers:Int=0) {
+        self.wiskerCount = wiskers
+        super.init(name:name, desc:desc, age:age, sound:sound)
+    }
+    deinit {
+        wiskerCount = 0
+    }
+    override func speak(Void) -> Void {
+        println("Kitty Kat \(name) goes: \(sound) [wiskers: \(wiskerCount)]")
+    }
+    func wiskerUp(var add:Int){
+        add = max(add,0)
+        wiskerCount = wiskerCount + Int(add)
+    }
+}
+```
+
+_examples_
+```
+var animal:Animal!
+var cat:Cat!
+animal = Animal()
+    animal.name = "Dragon"
+    animal.addYear()
+cat = Cat() // default 
+cat = Cat(name:"Spot", desc:"Cute Kitty Cat", age:4, sound:"Mrrrrow", wiskers:24)
+cat.wiskerUp(100)
+    cat.wiskerUp(200)
+animal.speak()
+cat.speak()
+```
+
+_referencing_
+```
+animal = cat // general can point to specific [Cat isa Animal]
+cat = animal // error - 
+println("animal is Cat: \(animal is Cat)") // true
+```
 
 
-.framework (general container)
+#### example project
+SpriteKit: 2D rendering and physics
+<!-- lot of different libraries, frameworks, etc -->
+
+- physics / collisions ?
 
 
 
-- "frameworks" ~ templates
-    - certain way of doing things
-- APIs (Application Programmer Interface)
-    - set of calls / classes / operations you can used focused around some purpose
+#### Other frameworks/libraries:
+
+
+- box2d (physics)
+- SceneKit (SpriteKit 3D Version)
+- sparrow (open source obj-c)
+
+- openglES (rendering : shader level)
+- metal (rendering : shader level)
+
+- Unity (3rd party multi-platform $)
 
 
 
-<!-- Classes Examples .................................................................. -->
-<a name="classes"></a>
-## inheritance
-
-extending/reusing code
-
-#### Classes
-
-#### prototype chain
-*JavaScript*
-
-#### singletons
-   - sharedInstance, defaultInstance, 
-
-<!-- IDE Examples .................................................................. -->
-<a name="IDE"></a>
-## IDE
-*Integrated Development Environment*
-
-#### XCode vs AppCode
 
 
-#### Eclipse vs Android Studio
 
-#### text editors / alternatives
-**Notepad**
+
+## Where to go:
+
+### Tutorials:
+http://www.raywenderlich.com/tutorials
 <br/>
-- 
-
-**SublimeText**
+https://itunes.apple.com/us/course/developing-ios-8-apps-swift/id961180099
 <br/>
-- syntax highlighting, auto-completion
 
-combine with command-line / OS calls
-
-
-
-
-<!--  .................................................................. -->
-## Concurrency / Parallelism
-
-#### processes
-
-#### threads
-
-#### asynchronous calls
-
-
-#### events
-   - message bus
-   - dispatch
-   - notification center
-   - 
-
-
-## preprocessing
-
-### compiler directives
-
-#### import
-
-#### macros
-
-#### pragma
-
-#### if/def
-
-<!-- Collaborative Programming Examples .................................................................. -->
-<a name="VC"></a>
-## VC
-*Version Control / Collaborative Programming*
-
-#### git
-
-
-#### SVN
-
-#### P4
-
-
-<!-- Languages Examples .................................................................. -->
-<a name="languages"></a>
-## languages
-<!-- Object-Oriented | Declarative | Imperative = bullshit -->
-
-#### machine
-hardware-specific, proprietary, ... RISC, 
-
-#### assembly
-NASM, TASM, ASM, proprietary
-```
-main: 
-    MOV $R1,0x1234
-    MOV $R2,0xABCD
-   ADD $R1,$R2
-```
-
-#### lower-level
-COBOL
-```
-```
-Pascal
-```
-```
-Fortran
-```
-```
-C
-```
-```
-
-
-#### scripting
-> shell / bash
-```bash
-ls -lah
-```
-> matlab / octave
-> ruby
-> python
-> perl
-
-#### higher-level
-C#
-Objective-C
-JAVA : object oriented crazy
-ActionScript
-
-#### ?
-JavaScript
-
-
-#### lambda
-Clojure
-Haskell
-LISP
-
-#### ...
-GO
-
-#### formatting / presentation
-HTML
-markdown
-CSS
-
-#### data
-binary
-- bit-level decisions of what is to be interpreted
-```
-...000010101...
-```
-XML
-- fat, hard to read, how to decided attribute vs nesting, slow processing
-```
-<!-- comment -->
-...
-<container>
-   <tagName attribute="value" />
-</container>
-...
-```
-JSON/JSONP
-- good 1:1 relationship with internal objects
-```
-...
-   "property":[
-      {"key":"value"}
-   ]
-...
-```
-YAML
-- human readable, 1:1 data-to-objects, complex referencing/indexing, spacing semantics
-```
-myobj &myObject
-    "A" : "val"
-    "B" : 5
-ref *myObject
-
-```
-
-
-#### methods
-<!-- method and function = synonyms -->
-methods are functions that are oriented toward objects
-```
-```
-
-
-
-#### NULL
-Ways to represent 'nothingness' or object does not exist
+### Reference:
+https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKit_Framework/index.html
 <br/>
-0, null, NULL, nil, Nil, undefined
 
-#### functions as variables (and typedef)
-<!-- notice how cumbersome and tedius and confusing C can get -->
-```
-```
+### C to Swift Cheat Sheet:
+http://appdesignvault.com/downloads/swift-cheat-sheet.pdf
+<br/>
 
-#### void-star (and type-casting)
-```
-void* pointer;
-int original = 0x1234567890;
-pointer = &original;
-float floatVal = (float)pointer;
-```
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -69,8 +69,6 @@ _All counting starts at 0_
 | METRIC NAME | PREFIX |     SIZE     |        LONG          |
 |-------------|--------|--------------|----------------------|
 | kilobyte | kB | 1E3 bytes | 1000 bytes |
-
-
 | megabyte | MB | 1E6 bytes | 1000000 bytes |
 | gigabyte | GB | 1E9 bytes | 1000000000 bytes |
 | terabyte | TB | 1E12 bytes | 1000000000000 bytes |
@@ -278,7 +276,7 @@ modulo (remainder) %
 9 % 5   // 4
 ```
 increment (pre/post) ++
-<!-- op(++b) ne op(b++)
+<!-- op(++b) ne op(b++) -->
 ```
 b = 5
 ++b   // b = 6
@@ -294,6 +292,15 @@ b--   // b = 4
 ```
 
 #### logical operators
+NOT !
+```
+! false  == true
+! true   == false 
+! 9      == 0 == false
+! 5      == 0 == false
+! 0      == 1 ==  true      *
+```
+<br/>
 AND &&
 ```
 false && false  == false 

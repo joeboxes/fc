@@ -30,8 +30,11 @@ _There are lots of intricacies and technicalities, but without nitty-gritty deta
 <a name="101"></a>
 ## universal concepts
 #### binary
+<!-- start low level, work up - goal: familiar w/ all the pieces before seen together in context -->
+<!-- might seem abstract, but will show where things come from & problems that had to be solved -->
 <!-- high and low voltages -->
 <!-- basic counting: 0, 1, 10, 11, 100, ... -->
+<!-- memory is a giant stream of 0s and 1s, broken into chunks -->
 bit / nibble / octet / byte / word 
 <!-- defacto byte===8 bits -->
 <!-- use spacing or symbols for readability -->
@@ -39,7 +42,7 @@ bit / nibble / octet / byte / word
 0 or 1, 4 bits, 8 bits, *8 bits, *32-bits
 ```
 <!-- nybble -->
-MSB...LSB <!-- 'significance' -->
+MSB...LSB <!-- digit 'significance' -->
 <!-- little vs *big endian -->
 <br/>
 _All counting starts at 0_
@@ -48,6 +51,7 @@ _All counting starts at 0_
 #### counting
 <br/>
 **binary, ie CS**
+<!-- get head around bit scales, magnitudes -->
 
 | BINARY NAME | PREFIX |     SIZE     |        LONG          |
 |-------------|--------|--------------|----------------------|
@@ -82,9 +86,10 @@ binary = base 2 =  0% = 0b
 <br/>
 ```EX: 0b101010```
 <br/>
-<!-- colors: 0-255, #AABBCC -->
+<!-- dissect number: 2^0 + ... + 2^n-1 -->
 hexidecimal = base 16 = hex = 0x = #
 <!-- try counting: 0,1,2,...8,9,A,B,C,D,E,F,10... -->
+<!-- colors: 0-255, #AABBCC -->
 <br/>
 ```EX: 0x2A```
 <br/>
@@ -269,6 +274,10 @@ subtraction -
 multiplication *
 ```
 9 * 5   // 45
+```
+division /
+```
+9 / 5   // 1
 ```
 modulo (remainder) %
 <!-- 17%2==0 18%2==1 19%2==0 ... -->

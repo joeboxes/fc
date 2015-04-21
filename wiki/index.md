@@ -300,6 +300,8 @@ b = 5
 b--   // b = 4
 ```
 
+<!-- how to get the value of a specifc bit? -->
+
 #### logical operators
 NOT !
 ```
@@ -453,7 +455,7 @@ address &
 <br/>
 pointer *
 ```
-*pointer       # pointer is a variable that holds the address of a variable, effectively pointing to it
+*pointer  # pointer is a variable that holds the address of a variable, effectively pointing to it
 ```
 <!-- optimimal use of memory, single 'object' multiple variables pointing to it -->
 dereference * (also asterisk)
@@ -461,22 +463,6 @@ dereference * (also asterisk)
 *pointer       # get the value of the object being pointed at
 ```
 <!-- give me the value of the object at the address of my value = of the object I'm pointing at -->
-<!--
-#### tertiary other
-conditional ?:
-<br/>
-&lt;expression to evaluate&gt; ? &lt;expression to use if true&gt; : &lt;expression to use if false&gt;
-```
-(a==b) ? 5 : 9
-```
-#### exceptions
-**overflow** : reach a number too large to be represented
-<br/>
-**underflow** : reach a number too tiny to be represented
-<br/>
-**defined** : system/user defined, used to change flow of program (eg list length is zero)
-<br/>
--->
 
 #### collections
 **array** : ordered list of values
@@ -489,7 +475,7 @@ array[3] = 0x00FF00
 array[4] = 0
                         # array = {9,100,6,65280,0}
 ```
-operations: push, pop, update
+operations: push, pop, update, [shift, unshift]
 <br/>
 
 <!-- some features may/not be available for certain languages out-of-the-box -->
@@ -506,7 +492,7 @@ operations: insert, update, delete
 
 
 #### data
-The data at a particular address can be interpreted as any type of data object (eg int, float, string), depending on the variable used to point at it. The data itself could be used to store the address of another variable, or the address to an address to an address...
+The data at a particular address can be interpreted as any type of data object (eg int, float, string) and any length (eg 1 byte, 4 bytes, 100 bytes), all depending on the variable used to point at it. The data itself could be used to store the address of another variable, or the address to an address to an address...
 
 #### instructions
 The data at an address can be interpreted as one of various (low-level) instructions, from simple statements like add the data from two addresses and put the result into a third address. The data could also be the address of a statement to be executed, or an offset to let the program counter 'jump' to a nearby memory location.
@@ -549,7 +535,9 @@ public static void main(String[] args){
 def main(argv):
     ...
 ```
-
+<!--
+Behind the scenes, the program you write actually makes a lot of calls to the operating system, which are fairly abstract. These are 'injected' by the compiler/interpreter
+-->
 <!-- C Examples .................................................................. -->
 <a name="C"></a>
 ## C
@@ -638,13 +626,15 @@ typedef struct {
 - stack/heap
     - stack grows based on functions calling functions
     - heap grows as more memory is required to store objects
-<!-- trade off where the overhead goes, and tedium -->
 - cleanup
   - manual: alloc, free
   - 'manual' reference counting: retain, release, (autorelease)
   - auto reference counting (ARC): reference code is injected by compiler at compile time
   - garbage collecting: periodic reference counting
 ```
+
+<!-- STACK/v/HEAP: trade off where the overhead goes, and tedium -->
+
 ---------
 CONSTANTS
 ---------
@@ -667,7 +657,7 @@ pointer referencing (location + value) and memory management (allocation, freein
 <!-- ? --> 
 ```C
 int main(int argc, char **argv) {
-    int i;
+  int i;
   printf("MAIN\n");
   // show input arguments to program
   for (i=0; i<argc; ++i){
@@ -765,11 +755,14 @@ int main(int argc, char **argv) {
 # xcode intro
 
 - interface
-    - left: file, compile & run feedback,  <!-- source code, images, storyboards/xib, sounds, config files -->
-    - center: source <!-- code, image, config -->
+    - left: file, compile & run feedback,
+    - center: source
     - right: attributes of left/center object
     - bottom: console, feedback, debugging
     - top-top: toolbar: settings, targets, run/stop
+
+<!-- LEFT: source code, images, storyboards/xib, sounds, config files -->
+<!-- CENTER: code, image, config -->
 
 <a name="SWIFT"></a>
 ## SWIFT
@@ -919,7 +912,7 @@ println("random number: \(randomInt)")
 ```
 
 #### objects & methods
-_constants vs optional vs auto-unwrapped optional
+_constants vs optional vs auto-unwrapped optional_
 ```
 
 ```
@@ -1005,6 +998,15 @@ println("animal is Cat: \(animal is Cat)") // true
 ```
 
 
+
+<!-- high level overview of what a SWE does -->
+## The Software Engineer's Job
+*) Maintain State (everything should always be in well-known state / behavior [except transient])
+*) Resource Management (don't be wastebul or leak memory, files, connections)
+*) Asynchronous Management (delayed response handling)
+*) Connecting Libraries together to create application
+*) Don't get pissed off and put your fist thru your monitor
+
 #### example project
 SpriteKit: 2D rendering and physics
 <!-- lot of different libraries, frameworks, etc -->
@@ -1028,6 +1030,22 @@ SpriteKit: 2D rendering and physics
 
 
 
+<!--
+#### tertiary other
+conditional ?:
+<br/>
+&lt;expression to evaluate&gt; ? &lt;expression to use if true&gt; : &lt;expression to use if false&gt;
+```
+(a==b) ? 5 : 9
+```
+#### exceptions
+**overflow** : reach a number too large to be represented
+<br/>
+**underflow** : reach a number too tiny to be represented
+<br/>
+**defined** : system/user defined, used to change flow of program (eg list length is zero)
+<br/>
+-->
 
 
 

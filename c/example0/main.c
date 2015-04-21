@@ -13,4 +13,6 @@ int main(int argc, char **argv) {
     for(i=0; i<argc; ++i){
         printf("arg %d: %s \n",i,argv[i]);
     }
+    return EXIT_SUCCESS; // EXIT_SUCCESS = 0 = success
+    // EXIT_FAILURE = 1 = (nonzero) = fail
 }

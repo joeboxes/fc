@@ -466,6 +466,8 @@ dereference * (also asterisk)
 
 #### collections
 **array** : ordered list of values
+<br/>
+_What if we wanted to have 100 bad guys in our game? This means 100 separate references to keep track of_
 ```
 var array = new Array() # ordered list
 array[0] = 9
@@ -565,6 +567,11 @@ most basic building blocks
 [C Types](http://en.wikipedia.org/wiki/C_data_types)
 
 
+### Learn Text Editor
+<!-- difference: word, etc use a file format, not straight ASCII text -->
+Download Sublime Text: (www.sublimetext.com/2)[www.sublimetext.com/2]
+
+
 #### example compile/run
 main: entry point for application - hello world
  > example0.c
@@ -594,61 +601,7 @@ pointers: multiple references to same object
     *j = 9;
     printf("C) i: %d, j: %d \n",i,*j); // C) i: 9, j: 9
 ```
-#### structs
-<!-- typedef lets you create aliases for things -->
-<!-- structs are just larger blocks of memory -->
-```C
-// need to declare variable as "struct person variable;"
-struct person {
-    char name[16];
-    int age;
-};
 
-// cleaner: declare variable as "person variable;"
-typedef struct {
-    char name[16];
-    int age;
-} person;
-
-    person richie;
-    strcpy(richie.name,"Richie");
-    richie.age = 27;
-    printf("name: %s, age:%d \n",richie.name,richie.age);
-```
-
-<!-- diagram of RAM -->
-### allocated space
-- compiletime
-    - program instructions
-    - constants
-- runtime
-    - memory allocation
-- stack/heap
-    - stack grows based on functions calling functions
-    - heap grows as more memory is required to store objects
-- cleanup
-  - manual: alloc, free
-  - 'manual' reference counting: retain, release, (autorelease)
-  - auto reference counting (ARC): reference code is injected by compiler at compile time
-  - garbage collecting: periodic reference counting
-```
-
-<!-- STACK/v/HEAP: trade off where the overhead goes, and tedium -->
-
----------
-CONSTANTS
----------
-PROGRAM
----------
-STACK
-v
-
-(trash)
-
-^
-HEAP
----------
-```
 
 #### example compile/run
 pointer referencing (location + value) and memory management (allocation, freeing)
@@ -746,6 +699,91 @@ int main(int argc, char **argv) {
  double For; // case sensitive, For is valid
 ```
 
+
+#### structs
+<!-- typedef lets you create aliases for things -->
+<!-- structs are just larger blocks of memory -->
+```C
+// need to declare variable as "struct person variable;"
+struct person {
+    char name[16];
+    int age;
+};
+
+// cleaner: declare variable as "person variable;"
+typedef struct {
+    char name[16];
+    int age;
+} person;
+
+    person richie;
+    strcpy(richie.name,"Richie");
+    richie.age = 27;
+    printf("name: %s, age:%d \n",richie.name,richie.age);
+```
+
+#### example compile/run
+pointer referencing (location + value) and memory management (allocation, freeing)
+ > example4.c
+
+<!-- ? --> 
+```C
+struct person {
+    char name[16];
+  int age;
+};
+typedef struct {
+  char name[16];
+  int age;
+} human;
+int main(int argc, char **argv) {
+  struct person richie;
+  strcpy(richie.name,"Richie");
+    richie.age = 27;
+    printf("name: %s, age:%d \n",richie.name,richie.age);
+
+    human john;
+    strcpy(john.name,"John");
+    john.age = 32;
+    printf("name: %s, age:%d \n",john.name,john.age);
+}
+```
+
+
+<!-- diagram of RAM -->
+### allocated space
+- compiletime
+    - program instructions
+    - constants
+- runtime
+    - memory allocation
+- stack/heap
+    - stack grows based on functions calling functions
+    - heap grows as more memory is required to store objects
+- cleanup
+  - manual: alloc, free
+  - 'manual' reference counting: retain, release, (autorelease)
+  - auto reference counting (ARC): reference code is injected by compiler at compile time
+  - garbage collecting: periodic reference counting
+```
+
+
+---------
+CONSTANTS
+---------
+PROGRAM
+---------
+STACK
+v
+
+(trash)
+
+^
+HEAP
+---------
+```
+
+<!-- STACK/v/HEAP: trade off where the overhead goes, and tedium -->
 
 
 
@@ -1064,13 +1102,6 @@ https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKit_Fram
 ### C to Swift Cheat Sheet:
 http://appdesignvault.com/downloads/swift-cheat-sheet.pdf
 <br/>
-
-
-
-
-
-
-
 
 
 

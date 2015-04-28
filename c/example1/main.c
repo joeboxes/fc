@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
     int *j;
     j = &i;
     fprintf(stdout, "example1: \n");
-    printf("A) i: %d, j: %d \n",i,*j); // A) i: 7, j: 1
+    printf("A) i: %d, j: %d \n",i,*j); // A) i: 0, j: 0
     i = 5;
     printf("B) i: %d, j: %d \n",i,*j); // B) i: 5, j: 5
     *j = 9;

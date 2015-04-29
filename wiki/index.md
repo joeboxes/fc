@@ -415,7 +415,10 @@ b = a       # a=9,b=9
 - memory (volatile)
 - storage (long term - CD,HDD)
 - peripherals (keyboard,mouse,monitor[graphics card])
-- Motherboard connects all these components <!-- BUS -->
+- Motherboard connects all these components
+
+
+<!-- BUS -->
 <!-- graphics cards are computers in own right -->
 
 ### RAM
@@ -468,6 +471,7 @@ dereference * (also asterisk)
 **array** : ordered list of values
 <br/>
 _What if we wanted to have 100 bad guys in our game? This means 100 separate references to keep track of_
+<!-- example array in memory & offsets -->
 ```
 var array = new Array() # ordered list
 array[0] = 9
@@ -569,12 +573,25 @@ most basic building blocks
 
 ### Learn Text Editor
 <!-- difference: word, etc use a file format, not straight ASCII text -->
-Download Sublime Text: (www.sublimetext.com/2)[www.sublimetext.com/2]
+Download Sublime Text: [www.sublimetext.com/2](www.sublimetext.com/2)
 
+### Install git
+_source code examples_
+<br/>
+[http://git-scm.com/download/mac](http://git-scm.com/download/mac)
+```
+# terminal
+cd ~/Desktop
+git clone git@github.com:richtastic/fc.git
+cd fc
+cd c
+ls
+open .
+```
 
 #### example compile/run
 main: entry point for application - hello world
- > example0.c
+ > example0/main.c
  
 ```C
 int main(int argc, char **argv) {
@@ -587,7 +604,7 @@ int main(int argc, char **argv) {
 
 #### example compile/run
 pointers: multiple references to same object
- > example1.c
+ > example1/main.c
 
 <!-- referencing, dereferencing --> 
 ```C
@@ -605,19 +622,11 @@ pointers: multiple references to same object
 
 #### example compile/run
 pointer referencing (location + value) and memory management (allocation, freeing)
- > example2.c
+ > example2/main.c
 
 <!-- ? --> 
 ```C
 int main(int argc, char **argv) {
-  int i;
-  printf("MAIN\n");
-  // show input arguments to program
-  for (i=0; i<argc; ++i){
-    printf("argv[%d]: %s \n",i,argv[i]);
-  }
-    
-  // show addressing
   int variable; // integer
   int *pointer; // pointer to an integer
     pointer = &variable; // point to same location
@@ -687,6 +696,7 @@ int main(int argc, char **argv) {
   return 0;
 }
 ```
+
 <!-- SEGV -->
 <!-- typecasting -->
 <!-- setting pointers to NULL when done -->
@@ -723,8 +733,8 @@ typedef struct {
 ```
 
 #### example compile/run
-pointer referencing (location + value) and memory management (allocation, freeing)
- > example4.c
+structs as conglomerate of primitive types (not quite objects)
+ > example3/main.c
 
 <!-- ? --> 
 ```C

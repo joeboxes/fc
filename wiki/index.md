@@ -573,7 +573,7 @@ most basic building blocks
 
 ### Learn Text Editor
 <!-- difference: word, etc use a file format, not straight ASCII text -->
-Download Sublime Text: [www.sublimetext.com/2](www.sublimetext.com/2)
+Download Sublime Text: [http://www.sublimetext.com/2](http://www.sublimetext.com/2)
 
 ### Install git
 _source code examples_

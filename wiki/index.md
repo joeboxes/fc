@@ -582,7 +582,7 @@ _source code examples_
 ```
 # terminal
 cd ~/Desktop
-git clone git@github.com:richtastic/fc.git
+git clone https://github.com/richtastic/fc.git
 cd fc
 cd c
 ls

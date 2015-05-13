@@ -832,6 +832,56 @@ HEAP
 <!-- show steps: Info(plist)=>Main.storyboard=>ViewController.swift (window) -->
 - simple examples
 
+### example 0:
+<!-- carefully describe at contents of each screen -->
+```
+XCode > New > Project >
+Single View Application
+Product Name: mystery
+Organization: (eg John & Richie)
+Organization Identifier: com.johnandrichie.mystery
+Language: Swift
+Save > (Location)
+```
+<!-- look at mystery project & mystery target, Info.plist -->
+``
+Product > Clean
+Product > Run
+``
+
+Drop storyboards / xibs (nibs)
+```
+Team: Richie Zirbes
+Main Interface: <empty>
+Launch Screen File: <empty>
+[Use Asset Catalog]
+```
+Add Code to AppDelegate.swft:
+```
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        window?.frame = UIScreen.mainScreen().bounds
+        
+        var controller = ViewController()
+        window?.rootViewController = controller
+        
+        return true
+    }
+```
+Add Code to ViewController.swift:
+```
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.redColor()
+        println("hello world!")
+    }
+```
+
+View Console Output
+
+### example1 / code walkthrough
+
 #### variables
 ```
 var myVariable:Int = 5
@@ -1049,11 +1099,12 @@ println("animal is Cat: \(animal is Cat)") // true
 
 <!-- high level overview of what a SWE does -->
 ## The Software Engineer's Job
-*) Maintain State (everything should always be in well-known state / behavior [except transient])
-*) Resource Management (don't be wastebul or leak memory, files, connections)
-*) Asynchronous Management (delayed response handling)
-*) Connecting Libraries together to create application
-*) Don't get pissed off and put your fist thru your monitor
+
+- Maintain State (everything should always be in well-known state / behavior [except transient])
+- Resource Management (don't be wastebul or leak memory, files, connections)
+- Asynchronous Management (delayed response handling)
+- Connecting Libraries together to create application
+- Don't get pissed off and put your fist thru your monitor
 
 #### example project
 SpriteKit: 2D rendering and physics

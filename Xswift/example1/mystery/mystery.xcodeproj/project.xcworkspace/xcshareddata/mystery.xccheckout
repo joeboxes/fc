@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6F5ABD51-6FD9-4659-B55C-6FBC38B1EDB7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>mystery</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EEC955D10115635250227597BA3B7EC50CC3AB28</key>
+		<string>github.com:richtastic/fc.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>swift/example1/mystery/mystery.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EEC955D10115635250227597BA3B7EC50CC3AB28</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:richtastic/fc.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EEC955D10115635250227597BA3B7EC50CC3AB28</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EEC955D10115635250227597BA3B7EC50CC3AB28</string>
+			<key>IDESourceControlWCCName</key>
+			<string>fc</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -103,6 +103,14 @@ class ViewController: UIViewController {
         task.resume()
         
         
+        // DO WHILE LOOP
+        var j:Int = 0
+        var maxIterations:Int = 4
+        
+        do {
+            println("j: \(j)")
+        } while j < maxIterations
+        
         // PASS-BY-VALUE vs PASS-BY-REFERENCE in functions
 /*
 WHILE

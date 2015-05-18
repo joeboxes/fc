@@ -803,7 +803,7 @@ HEAP
 # xcode intro
 
 - interface
-    - left: file, compile & run feedback,
+    - left: files, compile & run feedback
     - center: source
     - right: attributes of left/center object
     - bottom: console, feedback, debugging
@@ -830,9 +830,8 @@ HEAP
 <!-- MVC design => keep as seperate as possible (encapsulate) -->
 
 <!-- show steps: Info(plist)=>Main.storyboard=>ViewController.swift (window) -->
-- simple examples
 
-### example 0:
+### example 0: hello world
 <!-- carefully describe at contents of each screen -->
 ```
 XCode > New > Project >
@@ -844,10 +843,10 @@ Language: Swift
 Save > (Location)
 ```
 <!-- look at mystery project & mystery target, Info.plist -->
-``
+```
 Product > Clean
 Product > Run
-``
+```
 
 Drop storyboards / xibs (nibs)
 ```
@@ -880,7 +879,28 @@ Add Code to ViewController.swift:
 
 View Console Output
 
-### example1 / code walkthrough
+### example1 / example code walkthrough
+
+_Learn by doing - build an app that does some stuff_
+<br/>
+<!-- what is statically allocated vs dynamically allocated (!) -->
+<!--  -->
+<!--  -->
+<!-- why we use async processes: non-blocking -->
+<!--  -->
+
+- display text
+- images
+- buttons
+- async url loading
+- gestures
+- animations
+- push/pop controllers
+- input text
+- alerts
+
+
+### reference
 
 #### variables
 ```
@@ -1022,6 +1042,9 @@ _constants vs optional vs auto-unwrapped optional_
 #### pass by reference
 - objects (implicitly)
 
+
+### example 2: Classes
+
 #### classes & inheritence & encapsulation
 <!-- code reuse -->
 _base class_
@@ -1097,6 +1120,7 @@ println("animal is Cat: \(animal is Cat)") // true
 
 
 
+
 <!-- high level overview of what a SWE does -->
 ## The Software Engineer's Job
 
@@ -1106,11 +1130,16 @@ println("animal is Cat: \(animal is Cat)") // true
 - Connecting Libraries together to create application
 - Don't get pissed off and put your fist thru your monitor
 
-#### example project
+
+
+### example3 simple game
+
+flappy bird?
+
 SpriteKit: 2D rendering and physics
 <!-- lot of different libraries, frameworks, etc -->
 
-- physics / collisions ?
+- physics / collisions
 
 
 

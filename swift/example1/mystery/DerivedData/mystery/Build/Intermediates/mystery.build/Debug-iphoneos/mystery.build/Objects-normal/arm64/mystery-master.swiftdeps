@@ -1,5 +1,0 @@
-version: "Apple Swift version 1.2 (swiftlang-602.0.49.6 clang-602.0.49)"
-options: "066f88bf535e2621a12a18b658cb4ca8"
-inputs: 
-- "/Users/zirbr001/dev/extRepos/fc/swift/example1/mystery/mystery/ViewController.swift"
-- "/Users/zirbr001/dev/extRepos/fc/swift/example1/mystery/mystery/AppDelegate.swift"

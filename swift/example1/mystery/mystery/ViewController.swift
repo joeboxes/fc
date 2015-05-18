@@ -2,7 +2,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     let NUMBER_OF_IMAGES:Int = 5
     var funView:UIView!
     var funViewTapCount:Int = 0
@@ -109,15 +109,121 @@ class ViewController: UIViewController {
         
         do {
             println("j: \(j)")
+            ++j
         } while j < maxIterations
         
-        // PASS-BY-VALUE vs PASS-BY-REFERENCE in functions
-/*
-WHILE
-DO-WHILE
-FOR-IN
-*/
         
+        // REGULAR WHILE LOOP
+        j = 0
+        while j < 4 {
+            println("j: \(j)")
+            ++j
+        }
+        
+        
+        // ADD INPUT FIELDS TO GET USER DATA
+        var listTitles:[(String,String,String)] = [("first name","string","Richie"), ("last name","string",""), ("age","number","24")]
+        currentY = 300.0
+        for (key, val) in enumerate(listTitles) {
+            var dataLabel = val.0
+            var dataType = val.1
+            var dataValue = val.2
+            
+            println("make an input field: \(val)")
+            var label:UILabel!
+            label = UILabel()
+            label.frame = CGRectMake(0, currentY, 100, 32)
+            label.text = dataLabel
+            label.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview(label)
+            
+            var input:UITextField!
+            input = UITextField()
+            input.text = dataValue
+            input.frame = CGRectMake(100, currentY, 150, 32)
+            input.delegate = self
+            input.layer.cornerRadius = 4.0
+            input.layer.borderColor = UIColor.blackColor().CGColor
+            input.layer.borderWidth = 2.0
+            input.font = UIFont(name: "AvenirNext-Regular", size: 16.0)
+            input.tintColor = UIColor.blackColor();
+            input.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+            input.textAlignment = NSTextAlignment.Center
+            input.placeholder = "enter here"
+            input.clearButtonMode = UITextFieldViewMode.Never
+            input.keyboardType = UIKeyboardType.Default
+            input.returnKeyType = UIReturnKeyType.Done
+            if dataType == "number" {
+                input.keyboardType = UIKeyboardType.DecimalPad
+                input.returnKeyType = UIReturnKeyType.Go
+            }
+            input.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview(input)
+
+            currentY += 40
+        }
+        
+        
+        // PASS-BY-VALUE vs PASS-BY-REFERENCE in functions
+        var myArrayA:[String]!
+        var myArrayB:[String]!
+        
+        myArrayA = ["A","B","C"]
+        println("myArrayA Before: \(myArrayA)")
+        testPassByValue(myArrayA)
+        println("myArrayA After:  \(myArrayA)")
+        
+        myArrayB = ["A","B","C"]
+        println("myArrayB Before: \(myArrayB)")
+        testPassByReference(&myArrayB)
+        println("myArrayB After:  \(myArrayB)")
+    }
+    func testPassByValue(var arr:[String]!) {
+        arr.append("added")
+        println("  inside: \(arr)")
+    }
+    func testPassByReference(inout arr:[String]!) {
+        arr.append("added")
+        println("  inside: \(arr)")
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        var value:String! = textField.text
+        var result:String! = "RESULT: \""+textField.text+"\""
+        var alert:UIAlertController = UIAlertController(title:"field changed", message:result, preferredStyle:UIAlertControllerStyle.Alert)
+        //alert.addAction(UIAlertAction(title:"OK", style:UIAlertActionStyle.Default, handler: self.alertHandlerFxn)) // alternative
+        alert.addAction(UIAlertAction(title:"OK", style:UIAlertActionStyle.Default, handler: { (action:UIAlertAction!) -> Void in
+            switch action.style {
+            case .Default:
+                println("default")
+            case .Cancel:
+                println("cancel")
+            case .Destructive:
+                println("destruct")
+            }
+        }))
+        self.presentViewController(alert, animated:true) { () -> Void in
+            println("presented")
+        }
+    }
+    func alertHandlerFxn(action:UIAlertAction!) -> Void {
+        println("diff")
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        return true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        //textField.resignFirstResponder()
+        return true
+    }
+    // ALERTVIEWDELEGATE
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        println("button pressed: \(buttonIndex)")
     }
     
     // STACK PUSH

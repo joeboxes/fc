@@ -35,7 +35,7 @@ _There are lots of intricacies and technicalities, but without nitty-gritty deta
 <!-- high and low voltages -->
 <!-- basic counting: 0, 1, 10, 11, 100, ... -->
 <!-- memory is a giant stream of 0s and 1s, broken into chunks -->
-bit / nibble / octet / byte / word 
+bit / nibble / octet / byte / word
 <!-- defacto byte===8 bits -->
 <!-- use spacing or symbols for readability -->
 ```
@@ -300,82 +300,85 @@ b = 5
 b--   // b = 4
 ```
 
-<!-- how to get the value of a specifc bit? -->
+<!-- how to get the value of a specific bit? -->
 
 #### logical operators
 NOT !
 ```
 ! false  == true
-! true   == false 
+! true   == false
 ! 9      == 0 == false
 ! 5      == 0 == false
 ! 0      == 1 ==  true      *
 ```
 <br/>
-AND &&
+
+AND &amp;&amp;
 ```
-false && false  == false 
-false &&  true  == false 
- true && false  == false 
- true &&  true  ==  true 
+false && false  == false
+false &&  true  == false
+ true && false  == false
+ true &&  true  ==  true
     9 &&     4  == false (0b00001001(!=0) && 0b00000100(!=0) == true)
     5 &&     0  == false (0b00000101(!=0) && 0b00000000(==0) == false)
 ```
 <br/>
+
 OR ||
 ```
-false || false  == false 
-false ||  true  ==  true 
- true || false  ==  true 
- true ||  true  ==  true 
+false || false  == false
+false ||  true  ==  true
+ true || false  ==  true
+ true ||  true  ==  true
     9 ||     4  ==  true (0b00001001(!=0) || 0b00000100(!=0) == true)
     5 ||     0  == false (0b00000101(!=0) && 0b00000000(==0) == true)
 ```
 <br/>
+
 EQ ==
 ```
 false == false  ==  true
-false ==  true  == false 
- true == false  == false 
- true ==  true  ==  true 
+false ==  true  == false
+ true == false  == false
+ true ==  true  ==  true
     9 ==     4  == false (0b00001001 == 0b00000100 == false)
 ```
 <br/>
 NE !=
 ```
 false != false  == false
-false !=  true  ==  true 
- true != false  ==  true 
- true !=  true  == false 
+false !=  true  ==  true
+ true != false  ==  true
+ true !=  true  == false
     9 !=     4  ==  true (0b00001001 != 0b00000100 == true)
 ```
 <br/>
 GT >
 ```
-    9 >     4  ==  true 
-    5 >     9  == false 
-    5 >     5  == false 
+    9 >     4  ==  true
+    5 >     9  == false
+    5 >     5  == false
 ```
 <br/>
-LT < 
+LT <
 ```
-    9 <     4  == false 
-    5 <     9  ==  true 
-    5 <     5  == false 
+    9 <     4  == false
+    5 <     9  ==  true
+    5 <     5  == false
 ```
 <br/>
 GTE >=
 ```
-    9 >=    4  ==  true 
-    5 >=    9  == false 
-    5 >=    5  ==  true 
+    9 >=    4  ==  true
+    5 >=    9  == false
+    5 >=    5  ==  true
 ```
 <br/>
 LTE <=
 ```
-    9 <=    4  == false 
-    5 <=    9  ==  true 
-    5 <=    5  ==  true 
+    9 <=    4  == false
+    5 <=    9  ==  true
+    5 <=    5  ==  true
 ```
 <br/>
 negate - (unary)
@@ -507,7 +510,7 @@ The data at an address can be interpreted as one of various (low-level) instruct
 #### main()
 main (or similar) is the entry point of a program.
 <br/>
-parameters can be passed to it via the OS or other programs - _argument count_ and _argument values_ . 
+parameters can be passed to it via the OS or other programs - _argument count_ and _argument values_ .
 <br/>
 ```C
 // C, Obj-C, C++, ..
@@ -531,7 +534,7 @@ public static void main(String[] args){
 ```
 ```Ruby
 # ruby
-#!/usr/bin/env ruby 
+#!/usr/bin/env ruby
   ARGV.length
   ...
 ```
@@ -592,7 +595,7 @@ open .
 #### example compile/run
 main: entry point for application - hello world
  > example0/main.c
- 
+
 ```C
 int main(int argc, char **argv) {
     int i;
@@ -606,7 +609,7 @@ int main(int argc, char **argv) {
 pointers: multiple references to same object
  > example1/main.c
 
-<!-- referencing, dereferencing --> 
+<!-- referencing, dereferencing -->
 ```C
     int i;
     int *j;
@@ -624,13 +627,13 @@ pointers: multiple references to same object
 pointer referencing (location + value) and memory management (allocation, freeing)
  > example2/main.c
 
-<!-- ? --> 
+<!-- ? -->
 ```C
 int main(int argc, char **argv) {
   int variable; // integer
   int *pointer; // pointer to an integer
     pointer = &variable; // point to same location
-    
+
   printf("\nCHECK A:\n");
   printf("variable address: %p \n", &variable); // 0xX...X
   printf("variable value: %d \n", variable); // 0
@@ -639,14 +642,14 @@ int main(int argc, char **argv) {
   printf("pointer reference value: %d \n", *pointer); // 0
 
   variable = 5;
-  
+
   printf("\nCHECK B:\n");
   printf("variable address: %p \n", &variable); // 0xX...X
   printf("variable value: %d \n", variable); // 5
   printf("pointer address: %p \n", &pointer); // 0xX...X
   printf("pointer value: %p (%ld == %lx) \n", pointer,pointer,pointer); // 0xX...X
   printf("pointer reference value: %d \n", *pointer); // 5
-  
+
   *pointer = 9;
 
   printf("\nCHECK C:\n");
@@ -736,7 +739,7 @@ typedef struct {
 structs as conglomerate of primitive types (not quite objects)
  > example3/main.c
 
-<!-- ? --> 
+<!-- ? -->
 ```C
 struct person {
     char name[16];
@@ -861,10 +864,10 @@ Add Code to AppDelegate.swft:
         window = UIWindow()
         window?.makeKeyAndVisible()
         window?.frame = UIScreen.mainScreen().bounds
-        
+
         var controller = ViewController()
         window?.rootViewController = controller
-        
+
         return true
     }
 ```
@@ -1103,7 +1106,7 @@ var cat:Cat!
 animal = Animal()
     animal.name = "Dragon"
     animal.addYear()
-cat = Cat() // default 
+cat = Cat() // default
 cat = Cat(name:"Spot", desc:"Cute Kitty Cat", age:4, sound:"Mrrrrow", wiskers:24)
 cat.wiskerUp(100)
     cat.wiskerUp(200)
@@ -1114,7 +1117,7 @@ cat.speak()
 _referencing_
 ```
 animal = cat // general can point to specific [Cat isa Animal]
-cat = animal // error - 
+cat = animal // error -
 println("animal is Cat: \(animal is Cat)") // true
 ```
 
@@ -1192,12 +1195,3 @@ https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKit_Fram
 ### C to Swift Cheat Sheet:
 http://appdesignvault.com/downloads/swift-cheat-sheet.pdf
 <br/>
-
-
-
-
-
-
-
-
-

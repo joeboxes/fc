@@ -329,16 +329,33 @@ lazy var name: String = {
 
 
 
+design patterns:
+	singleton
+	factory methods
+	builder
+	decorator
+	adapter
+	facade
+	bridge
+	wrapper
+	observer
+	memento
+	MVC | MVVM | MVI | VIPER
+	dependency injection > testing
+
+	extensions
+	delegate
+	composite
+	iterator
+	mediator
+	proxy
+	template
 
 
-
-
-
-
-
-
-
-
+objectivec runtime:
+	/usr/lib/libobjc.A.dylib.
+	https://cocoasamurai.blogspot.com/2010/01/understanding-objective-c-runtime.html
+	https://cocoasamurai.blogspot.com/2010/01/understanding-objective-c-runtime.html
 
 
 

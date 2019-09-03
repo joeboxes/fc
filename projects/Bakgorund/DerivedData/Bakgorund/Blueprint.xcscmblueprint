@@ -1,0 +1,22 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EEC955D10115635250227597BA3B7EC50CC3AB28" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C83CA23B-A1E7-41B8-8838-640168681CBB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EEC955D10115635250227597BA3B7EC50CC3AB28" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Bakgorund",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Bakgorund.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git@github.com:richtastic\/fc.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EEC955D10115635250227597BA3B7EC50CC3AB28"
+    }
+  ]
+}

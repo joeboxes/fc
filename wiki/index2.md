@@ -229,7 +229,7 @@ Heap
 # Unowned self
 - reference cycles
 strong = add to ARC
-weak = don't add to ARC  (optionals nil pointerswhen deallocated)
+weak = don't add to ARC  (optionals nil pointers when deallocated)
 unowned = don't add to ARC + nonoptional (non-optional, possibly dangling pointers) [unsafe_unretained]
     - used for mutual dependence
 ...

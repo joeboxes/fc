@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
+options: "4c0407c1ee6c00120b8f8101cc1104dc"
+build_time: [1567531631, 258518000]
+inputs:
+  "/Users/zirbr001/dev/ext/fc/projects/Bakgorund/Bakgorund/ViewController.swift": !dirty [1567100453, 453275919]
+  "/Users/zirbr001/dev/ext/fc/projects/Bakgorund/Bakgorund/AppDelegate.swift": !dirty [1567218842, 84786177]

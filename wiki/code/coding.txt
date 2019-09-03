@@ -1,0 +1,2516 @@
+//Enter your code here. Read input from STDIN. Print output to STDOUT
+NSString *inputString = [STDIN Read];
+NSLog(@"Hello, World");
+NSLog(@"%@", inputString);
+
+
+
+NSFileHandle *kbd = [NSFileHandle fileHandleWithStandardInput];
+NSData *inputData = [kbd availableData];
+NSString *option = [[[NSString alloc] initWithData:inputData 
+                 encoding:NSUTF8StringEncoding] substringToIndex:1];
+NSLog(@"%@",option);
+
+
+//Enter your code here. Read input from STDIN. Print output to STDOUT
+#import <Foundation/Foundation.h>
+NSString *inputString = @"yo";
+
+// NSFileHandle *stdInHandle = [NSFileHandle fileHandleWithStandardInput];
+// NSData *inputData = [stdInHandle availableData];
+// NSString *option = [[[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding] substringToIndex:1];
+// NSLog(@"%@",option);
+
+NSLog(@"Hello, World");
+NSLog(@"%@", inputString);
+
+
+//Enter your code here. Read input from STDIN. Print output to STDOUT
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char* argv[]){
+    @autoreleasepool {
+        // read input
+        NSFileHandle *stdInHandle = [NSFileHandle fileHandleWithStandardInput];
+        NSData *inputData = [stdInHandle availableData];
+        NSString *inputString = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
+        // convert to cstring for output
+        char *cstring = [inputString utf8String];
+        // display input
+        // NSLog(@"%@",inputString);
+
+        // NSLog(@"Hello, World");
+        printf("Hello, World");
+        // NSLog(@"Hello, World");
+        printf("%s", cstring);
+        }
+}
+
++++++ 0:
+
+//Enter your code here. Read input from STDIN. Print output to STDOUT
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char* argv[]){
+    @autoreleasepool {
+        // read input
+        NSFileHandle *stdInHandle = [NSFileHandle fileHandleWithStandardInput];
+        NSData *inputData = [stdInHandle availableData];
+        NSString *inputString = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];
+        // convert to cstring for output
+        char *cstring = [inputString UTF8String];
+        // display constant
+        printf("Hello, World.");
+        printf("\n");
+        // display input
+        printf("%s", cstring);
+        }
+}
+
+
+
+
+
+----
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface NSString (ArrayFromString)
+- (NSArray *) arrayFromString;
+@end
+
+@implementation NSString (ArrayFromString)
+- (NSArray *) arrayFromString {
+    return [self componentsSeparatedByString:@" "];
+}
+@end
+
+@interface Solution:NSObject
+- (NSNumber *) sockMerchant:(NSNumber *)n ar:(NSArray *)ar;
+@end
+
+@implementation Solution
+// Complete the sockMerchant function below.
+- (NSNumber *) sockMerchant:(NSNumber *)n ar:(NSArray *)ar {
+    // create map for holding colors: COLOR:COUNT
+    NSMutableDictionary *lookup = [[NSMutableDictionary alloc]init];
+    for(NSNumber *number in ar){
+        NSNumber *count = lookup[number];
+        if(count==nil){
+            count = [NSNumber numberWithInt:0];
+        }
+        count = [NSNumber numberWithInt:([count intValue] + 1)];
+        [lookup setValue:count forKey:number];
+    }
+    // reduce: count number of pairs for each color (count/2|0) & accumulate
+    NSNumber *pairs = [NSNumber numberWithInt:0];
+    for(NSNumber *key in lookup){
+        NSNumber *value = lookup[key];
+        int pair = floor([value intValue]/2);
+        pairs = [NSNumber numberWithInt:( pair + [pairs intValue])];
+    }
+    return pairs;
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSString *stdout = [[[NSProcessInfo processInfo] environment] objectForKey:@"OUTPUT_PATH"];
+        [[NSFileManager defaultManager] createFileAtPath:stdout contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:stdout];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSNumber *n = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+        currentInputLine += 1;
+
+        NSArray *arTemp = [[availableInputArray objectAtIndex:currentInputLine] componentsSeparatedByString:@" "];
+        currentInputLine += 1;
+
+        NSMutableArray *arTempMutable = [NSMutableArray arrayWithCapacity:[n unsignedIntegerValue]];
+
+        [arTemp enumerateObjectsUsingBlock:^(NSString *arItem, NSUInteger idx, BOOL *stop) {
+            [arTempMutable addObject:[arItem numberFromString:numberFormatter]];
+        }];
+
+        NSArray *ar = [arTempMutable copy];
+
+        NSNumber *result = [[[Solution alloc] init] sockMerchant:n ar:ar];
+
+        [fileHandle writeData:[[result stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [fileHandle closeFile];
+    }
+
+    return 0;
+}
+
+
+
+
+----
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface Solution:NSObject
+- (NSNumber *) countingValleys:(NSNumber *)n s:(NSString *)s;
+@end
+
+@implementation Solution
+// Complete the countingValleys function below.
+- (NSNumber *) countingValleys:(NSNumber *)n s:(NSString *)s {
+    int count = [s length]; // == n
+    int elevation = 0; // keep track of current altitude
+    int valleys = 0; // keep track of starts of valleys
+    // check & change state for each letter
+    for(int i=0; i<count; ++i){
+        unichar c = [s characterAtIndex: i];
+        // record valley if starting a new descent
+        if(c=='D' && elevation==0){
+            valleys += 1;
+        }
+        // increment delta change
+        if(c=='U'){
+            elevation += 1;
+        }else if(c=='D'){
+            elevation -= 1;
+        }
+    }
+    return [NSNumber numberWithInt:valleys];
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSString *stdout = [[[NSProcessInfo processInfo] environment] objectForKey:@"OUTPUT_PATH"];
+        [[NSFileManager defaultManager] createFileAtPath:stdout contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:stdout];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSNumber *n = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+        currentInputLine += 1;
+
+        NSString *s = [availableInputArray objectAtIndex:currentInputLine];
+        currentInputLine += 1;
+
+        NSNumber *result = [[[Solution alloc] init] countingValleys:n s:s];
+
+        [fileHandle writeData:[[result stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [fileHandle closeFile];
+    }
+
+    return 0;
+}
+
+
+
+
+----
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface NSString (ArrayFromString)
+- (NSArray *) arrayFromString;
+@end
+
+@implementation NSString (ArrayFromString)
+- (NSArray *) arrayFromString {
+    return [self componentsSeparatedByString:@" "];
+}
+@end
+
+@interface Solution:NSObject
+- (NSNumber *) jumpingOnClouds:(NSArray *)c;
+@end
+
+@implementation Solution
+// Complete the jumpingOnClouds function below.
+- (NSNumber *) jumpingOnClouds:(NSArray *)c {
+    int jumps = 0; // start at 0
+    int state = -1; // ignore leading 0
+    for(NSNumber* cloudType in c){
+        int cloud = [cloudType intValue];
+        if(state==0){ // first char
+            if(cloud==0){
+                state = 1;
+            }else{
+                state = -1; // ignore next 0
+                jumps += 1;
+            }
+        }else if(state==1){ // second char
+            if(cloud==0){
+                jumps += 1;
+                state = 0;
+            }else{
+                jumps += 2;
+                state = -1; // ignore next 0
+            }
+        }else{ // ignore assumed 0
+            state = 0;
+        }
+    }
+    if(state==1){ // overflow, jump to last location
+        jumps += 1;
+    }
+    return [NSNumber numberWithInt:jumps];
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSString *stdout = [[[NSProcessInfo processInfo] environment] objectForKey:@"OUTPUT_PATH"];
+        [[NSFileManager defaultManager] createFileAtPath:stdout contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:stdout];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSNumber *n = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+        currentInputLine += 1;
+
+        NSArray *cTemp = [[availableInputArray objectAtIndex:currentInputLine] componentsSeparatedByString:@" "];
+        currentInputLine += 1;
+
+        NSMutableArray *cTempMutable = [NSMutableArray arrayWithCapacity:[n unsignedIntegerValue]];
+
+        [cTemp enumerateObjectsUsingBlock:^(NSString *cItem, NSUInteger idx, BOOL *stop) {
+            [cTempMutable addObject:[cItem numberFromString:numberFormatter]];
+        }];
+
+        NSArray *c = [cTempMutable copy];
+
+        NSNumber *result = [[[Solution alloc] init] jumpingOnClouds:c];
+
+        [fileHandle writeData:[[result stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [fileHandle closeFile];
+    }
+
+    return 0;
+}
+
+
+----
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface Solution:NSObject
+- (NSNumber *) repeatedString:(NSString *)s n:(NSNumber *)n;
+@end
+
+@implementation Solution
+// Complete the repeatedString function below.
+- (NSNumber *) repeatedString:(NSString *)s n:(NSNumber *)n {
+    // count total number of full repeats & remainder
+    long long totalCount = [n longLongValue];
+    int stringLength = s.length;
+    long long completeCount = totalCount/stringLength;
+    if(completeCount<0){
+        NSLog(@"completeCount: %lld", completeCount); 
+    }
+    long long remainderCount = totalCount - (completeCount*stringLength);
+    int foundAsTotal = 0;
+    int foundAsRemainder = 0;
+    // count complete & remainder
+    for(int i=0; i<stringLength; ++i){
+        unichar c = [s characterAtIndex: i];
+        if(c=='a'){
+            foundAsTotal += 1;
+            if(i<remainderCount){
+                foundAsRemainder += 1;
+            }
+        }
+    }
+    // sum
+    long long totalAs = foundAsTotal*completeCount + foundAsRemainder;
+    return [NSNumber numberWithLongLong:totalAs];
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSString *stdout = [[[NSProcessInfo processInfo] environment] objectForKey:@"OUTPUT_PATH"];
+        [[NSFileManager defaultManager] createFileAtPath:stdout contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:stdout];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSString *s = [availableInputArray objectAtIndex:currentInputLine];
+        currentInputLine += 1;
+
+        NSNumber *n = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+        currentInputLine += 1;
+
+        NSNumber *result = [[[Solution alloc] init] repeatedString:s n:n];
+
+        [fileHandle writeData:[[result stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [fileHandle closeFile];
+    }
+
+    return 0;
+}
+
+
+
+----
+
+
+
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface NSString (ArrayFromString)
+- (NSArray *) arrayFromString;
+@end
+
+@implementation NSString (ArrayFromString)
+- (NSArray *) arrayFromString {
+    return [self componentsSeparatedByString:@" "];
+}
+@end
+
+@interface Solution:NSObject
+- (NSNumber *) hourglassSum:(NSArray *)arr;
+@end
+
+@implementation Solution
+// Complete the hourglassSum function below.
+- (NSNumber *) hourglassSum:(NSArray *)arr {
+    int maxHourglass = -1;
+    for(int j=0; j<4; ++j){ // each row
+        for(int i=0; i<4; ++i){ // each column
+            // get hourglass with this offset
+            int sum = [self hgCalc:arr offX:i offY:j];
+            if(maxHourglass<0 || sum > maxHourglass){
+                maxHourglass = sum; // keep largest
+            }
+        }
+    }
+    return [NSNumber numberWithInt:maxHourglass];
+}
+
+- (int) hgCalc:(NSArray*)arr offX:(int)x offY:(int)y {
+    // could separate into for loop over indexes
+    int d00 = arr[y+0][x+0];
+    int d01 = arr[y+0][x+1];
+    int d02 = arr[y+0][x+2];
+    int d11 = arr[y+1][x+1];
+    int d20 = arr[y+2][x+0];
+    int d21 = arr[y+2][x+1];
+    int d22 = arr[y+2][x+2];
+    return [d00 intValue] + [d01 intValue] + [d02 intValue] + [d11 intValue] + [d20 intValue] + [d21 intValue] + [d22 intValue];
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSString *stdout = [[[NSProcessInfo processInfo] environment] objectForKey:@"OUTPUT_PATH"];
+        [[NSFileManager defaultManager] createFileAtPath:stdout contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:stdout];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSArray *arrTemp = [[availableInputArray subarrayWithRange:NSMakeRange(currentInputLine, 6)] valueForKey:@"arrayFromString"];
+        currentInputLine += 6;
+
+        for (id arrRow in arrTemp) {
+            if ([arrRow count] != 6) {
+                [NSException raise:@"Bad Input" format:@"%@", [arrRow componentsJoinedByString:@", "]];
+            }
+        }
+
+        NSMutableArray *arrTempMutable = [NSMutableArray arrayWithCapacity:6];
+
+        for (id arrTempRow in arrTemp) {
+            NSMutableArray *arrTempRowMutable = [NSMutableArray arrayWithCapacity:6];
+
+            [arrTempRow enumerateObjectsUsingBlock:^(NSString *arrItem, NSUInteger idx, BOOL *stop) {
+                [arrTempRowMutable addObject:[arrItem numberFromString:numberFormatter]];
+            }];
+
+            [arrTempMutable addObject:[arrTempRowMutable copy]];
+        }
+
+        NSArray *arr = [arrTempMutable copy];
+
+        NSNumber *result = [[[Solution alloc] init] hourglassSum:arr];
+
+        [fileHandle writeData:[[result stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [fileHandle closeFile];
+    }
+
+    return 0;
+}
+
+
+----
+
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface NSString (ArrayFromString)
+- (NSArray *) arrayFromString;
+@end
+
+@implementation NSString (ArrayFromString)
+- (NSArray *) arrayFromString {
+    return [self componentsSeparatedByString:@" "];
+}
+@end
+
+@interface Solution:NSObject
+- (NSArray *) rotLeft:(NSArray *)a d:(NSNumber *)d;
+@end
+
+@implementation Solution
+// Complete the rotLeft function below.
+- (NSArray *) rotLeft:(NSArray *)a d:(NSNumber *)d {
+    int len = a.count;
+    int remainder = [d intValue] % len;
+    // swap places
+    NSMutableArray *b = [a mutableCopy];
+    for(int i=0; i<len; ++i){
+        b[i] = a[(i+remainder)%len];
+    }
+    return b;
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSString *stdout = [[[NSProcessInfo processInfo] environment] objectForKey:@"OUTPUT_PATH"];
+        [[NSFileManager defaultManager] createFileAtPath:stdout contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:stdout];
+
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSArray *nd = [[availableInputArray objectAtIndex:currentInputLine] componentsSeparatedByString:@" "];
+        currentInputLine += 1;
+
+        NSNumber *n = [nd[0] numberFromString:numberFormatter];
+
+        NSNumber *d = [nd[1] numberFromString:numberFormatter];
+
+        NSArray *aTemp = [[availableInputArray objectAtIndex:currentInputLine] componentsSeparatedByString:@" "];
+        currentInputLine += 1;
+
+        NSMutableArray *aTempMutable = [NSMutableArray arrayWithCapacity:[n unsignedIntegerValue]];
+
+        [aTemp enumerateObjectsUsingBlock:^(NSString *aItem, NSUInteger idx, BOOL *stop) {
+            [aTempMutable addObject:[aItem numberFromString:numberFormatter]];
+        }];
+
+        NSArray *a = [aTempMutable copy];
+
+        NSArray *result = [[[Solution alloc] init] rotLeft:a d:d];
+
+        [fileHandle writeData:[[result componentsJoinedByString:@" "] dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [fileHandle closeFile];
+    }
+
+    return 0;
+}
+
+
+
+
+---
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface NSString (ArrayFromString)
+- (NSArray *) arrayFromString;
+@end
+
+@implementation NSString (ArrayFromString)
+- (NSArray *) arrayFromString {
+    return [self componentsSeparatedByString:@" "];
+}
+@end
+
+@interface Solution:NSObject
+- (void) minimumBribes:(NSArray *)q;
+@end
+
+@implementation Solution
+// Complete the minimumBribes function below.
+- (void) minimumBribes:(NSArray *)q {
+    int len = q.count;
+    int sum = 0;
+    BOOL tooMany = false;
+    for(int index=len-1; index>=0; --index){ // each person in line
+        int initial = [q[index] intValue];
+        int diff = initial - index-1;
+        if(diff>2){ // if moved too many spaces: more than 2 bribes
+            tooMany = true;
+            break;
+        }
+        int start = MAX(0,initial-2); // only need to count up to initial spot -2
+        for(int i=start; i<index; ++i){ // count forward neighbors
+            int m = [q[i] intValue];
+            if(m>initial){
+                sum += 1;
+            }
+        }
+    }
+    // output result
+    if(tooMany){
+        printf("Too chaotic\n");
+    }else{
+        printf("%d\n",sum);
+    }
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSNumber *t = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+        currentInputLine += 1;
+
+        for (NSUInteger tItr = 0; tItr < [t integerValue]; tItr++) {
+            NSNumber *n = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+            currentInputLine += 1;
+
+            NSArray *qTemp = [[availableInputArray objectAtIndex:currentInputLine] componentsSeparatedByString:@" "];
+            currentInputLine += 1;
+
+            NSMutableArray *qTempMutable = [NSMutableArray arrayWithCapacity:[n unsignedIntegerValue]];
+
+            [qTemp enumerateObjectsUsingBlock:^(NSString *qItem, NSUInteger idx, BOOL *stop) {
+                [qTempMutable addObject:[qItem numberFromString:numberFormatter]];
+            }];
+
+            NSArray *q = [qTempMutable copy];
+
+            [[[Solution alloc] init] minimumBribes:q];
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+---
+
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* readline();
+char** split_string(char*);
+
+// Complete the minimumBribes function below.
+void minimumBribes(int q_count, int* q) {
+  int sum = 0;
+  bool tooMany = false;
+  for (int index = q_count - 1; index >= 0; --index) { // each person in line
+    int initial = q[index];
+    int diff = initial - index - 1;
+    if (diff > 2) { // if moved too many spaces: more than 2 bribes
+      tooMany = true;
+      break;
+    }
+    int start = fmax(0, initial - 2); // only need to count up to initial spot -2
+    for (int i = start; i < index; ++i) { // count forward neighbors
+      int m = q[i];
+      if (m > initial) {
+        sum += 1;
+      }
+    }
+  }
+  // output result
+  if (tooMany) {
+    printf("Too chaotic\n");
+  } else {
+    printf("%d\n", sum);
+  }
+}
+
+int main()
+{
+    char* t_endptr;
+    char* t_str = readline();
+    int t = strtol(t_str, &t_endptr, 10);
+
+    if (t_endptr == t_str || *t_endptr != '\0') { exit(EXIT_FAILURE); }
+
+    for (int t_itr = 0; t_itr < t; t_itr++) {
+        char* n_endptr;
+        char* n_str = readline();
+        int n = strtol(n_str, &n_endptr, 10);
+
+        if (n_endptr == n_str || *n_endptr != '\0') { exit(EXIT_FAILURE); }
+
+        char** q_temp = split_string(readline());
+
+        int* q = malloc(n * sizeof(int));
+
+        for (int i = 0; i < n; i++) {
+            char* q_item_endptr;
+            char* q_item_str = *(q_temp + i);
+            int q_item = strtol(q_item_str, &q_item_endptr, 10);
+
+            if (q_item_endptr == q_item_str || *q_item_endptr != '\0') { exit(EXIT_FAILURE); }
+
+            *(q + i) = q_item;
+        }
+
+        int q_count = n;
+
+        minimumBribes(q_count, q);
+    }
+
+    return 0;
+}
+
+char* readline() {
+    size_t alloc_length = 1024;
+    size_t data_length = 0;
+    char* data = malloc(alloc_length);
+
+    while (true) {
+        char* cursor = data + data_length;
+        char* line = fgets(cursor, alloc_length - data_length, stdin);
+
+        if (!line) { break; }
+
+        data_length += strlen(cursor);
+
+        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') { break; }
+
+        size_t new_length = alloc_length << 1;
+        data = realloc(data, new_length);
+
+        if (!data) { break; }
+
+        alloc_length = new_length;
+    }
+
+    if (data[data_length - 1] == '\n') {
+        data[data_length - 1] = '\0';
+    }
+
+    data = realloc(data, data_length);
+
+    return data;
+}
+
+char** split_string(char* str) {
+    char** splits = NULL;
+    char* token = strtok(str, " ");
+
+    int spaces = 0;
+
+    while (token) {
+        splits = realloc(splits, sizeof(char*) * ++spaces);
+        if (!splits) {
+            return splits;
+        }
+
+        splits[spaces - 1] = token;
+
+        token = strtok(NULL, " ");
+    }
+
+    return splits;
+}
+
+
+
+
+---
+
+
+var i = 4
+var d = 4.0
+var s = "HackerRank "
+
+import Foundation;
+// Declare second integer, double, and String variables.
+var i2:Int;
+var d2:Double;
+var s2:String;
+// Read and save an integer, double, and String to your variables.
+var line:String;
+line = readLine(strippingNewline: true)!
+i2 = Int(line)!
+
+line = readLine(strippingNewline: true)!
+d2 = Double(line)!
+
+line = readLine(strippingNewline: true)!
+s2 = line!
+
+// Print the sum of both integer variables on a new line.
+print("\(i+i2)")
+// Print the sum of the double variables on a new line.
+print("\(d+d2)")
+// Concatenate and print the String variables on a new line
+// The 's' variable above should be printed first.
+print("\(s+s2)")
+
+
+
+
+---
+
+import Foundation
+
+// Complete the minimumSwaps function below.
+func minimumSwaps(arr: [Int]) -> Int {
+    let len = arr.count
+    let lm1 = len - 1
+    var original:[Int] = arr
+    // var sorted:[Int] = arr
+    //     sorted.sort()
+    let min:Int = arr.min()!
+    print("MIN: \(min)")
+    var swaps:Int = 0
+    var i:Int = 0
+    while i < lm1 {
+        // if original[i] != sorted[i] { // swap spots
+        //     for j in (i+1)...len-1 {
+        //         if original[j] == sorted[i] {
+        //             let temp = original[i];
+        //             original[i] = original[j]
+        //             original[j] = temp
+        //             swaps += 1
+        //             break;
+        //         }
+        //     }
+        // }
+        let j = original[i] - min // destinationed index
+        print(" \(i): \(original[i]) => \(j)")
+        if i != j {
+            let temp = original[i]
+            original[i] = original[j]
+            original[j] = temp
+            swaps += 1
+            // recheck
+        } else { // continue
+            i += 1
+        }
+    }
+    return swaps;
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let n = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+guard let arrTemp = readLine() else { fatalError("Bad input") }
+let arr: [Int] = arrTemp.split(separator: " ").map {
+    if let arrItem = Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) {
+        return arrItem
+    } else { fatalError("Bad input") }
+}
+
+guard arr.count == n else { fatalError("Bad input") }
+
+let res = minimumSwaps(arr: arr)
+
+fileHandle.write(String(res).data(using: .utf8)!)
+fileHandle.write("\n".data(using: .utf8)!)
+
+
+
+---
+
+
+import Foundation
+
+// Complete the checkMagazine function below.
+func checkMagazine(magazine: [String], note: [String]) -> Void {
+    var table = [String:Int]()
+    var possible:Bool = true
+    for word in magazine { // fill magazine in with counts for each item
+        if let entry = table[word] {
+            table[word] = entry + 1
+        } else {
+            table[word] = 1
+        }
+    }
+    for word in note {
+        let entry = table[word] ?? 0
+        if entry == 0 {
+            possible = false
+            break
+        }
+        table[word] = entry - 1
+    }
+    if possible {
+        print("Yes")
+    } else {
+        print("No")
+    }
+}
+
+guard let mnTemp = readLine() else { fatalError("Bad input") }
+let mn = mnTemp.split(separator: " ").map{ String($0) }
+
+guard let m = Int(mn[0].trimmingCharacters(in: .whitespacesAndNewlines))
+else { fatalError("Bad input") }
+
+guard let n = Int(mn[1].trimmingCharacters(in: .whitespacesAndNewlines))
+else { fatalError("Bad input") }
+
+guard let magazineTemp = readLine() else { fatalError("Bad input") }
+let magazine: [String] = magazineTemp.split(separator: " ").map {
+    String($0)
+}
+
+guard magazine.count == m else { fatalError("Bad input") }
+
+guard let noteTemp = readLine() else { fatalError("Bad input") }
+let note: [String] = noteTemp.split(separator: " ").map {
+    String($0)
+}
+
+guard note.count == n else { fatalError("Bad input") }
+
+checkMagazine(magazine: magazine, note: note)
+
+
+
+
+---
+
+
+import Foundation
+extension String {
+    func substr(_ s: Int, _ e: Int) -> String? {
+        let str = self
+        let start = str.index(str.startIndex, offsetBy: s)
+        let end = str.index(str.startIndex, offsetBy: e)
+        let range = start..<end
+        let mySubstring = str[range]
+        let myString = String(mySubstring)
+        return myString
+    }
+}
+
+// Complete the twoStrings function below.
+func twoStrings(s1: String, s2: String) -> String { // any single letter matches
+    let len1 = s1.count
+    let len2 = s2.count
+    var table = [String:Int]()
+    for i in 0...len1-1 {
+        if let s = s1.substr(i,i+1) {
+            table[s] = 1
+        }
+    }
+    for i in 0...len2-1 { // first collision = yes
+        if let s = s2.substr(i,i+1) {
+            if let _ = table[s] {
+                return "yes"
+                break
+            }
+        }
+    } // exhaustive fail
+    return "no"
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let q = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for qItr in 1...q {
+    guard let s1 = readLine() else { fatalError("Bad input") }
+
+    guard let s2 = readLine() else { fatalError("Bad input") }
+
+    let result = twoStrings(s1: s1, s2: s2)
+
+    fileHandle.write(result.data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+
+---
+
+
+import Foundation
+extension String {
+    func substr(_ s: Int, _ e: Int) -> String? {
+        let str = self
+        let start = str.index(str.startIndex, offsetBy: s)
+        let end = str.index(str.startIndex, offsetBy: e)
+        let range = start..<end
+        let mySubstring = str[range]
+        let myString = String(mySubstring)
+        return myString
+    }
+}
+extension String {
+  subscript (i: Int) -> Character {
+    return self[index(startIndex, offsetBy: i)]
+  }
+}
+
+// Complete the twoStrings function below.
+func twoStrings(s1: String, s2: String) -> String { // any single letter matches
+    let len1 = s1.count
+    let len2 = s2.count
+    var table = [Character:Int]()
+    for i in 0...len1-1 {
+        let c = s1[i]
+        table[c] = 1
+    }
+    for i in 0...len2-1 { // first collision = yes
+        let c = s2[i]
+        if let _ = table[c] {
+            return "YES"
+        }
+    } // exhaustive fail
+    return "NO"
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let q = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for qItr in 1...q {
+    guard let s1 = readLine() else { fatalError("Bad input") }
+
+    guard let s2 = readLine() else { fatalError("Bad input") }
+
+    let result = twoStrings(s1: s1, s2: s2)
+
+    fileHandle.write(result.data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+
+---
+
+
+
+import Foundation
+extension String {
+    func substr(_ s: Int, _ e: Int) -> String? {
+        let str = self
+        let start = str.index(str.startIndex, offsetBy: s)
+        let end = str.index(str.startIndex, offsetBy: e)
+        let range = start..<end
+        let mySubstring = str[range]
+        let myString = String(mySubstring)
+        return myString
+    }
+}
+extension String {
+  subscript (i: Int) -> Character {
+    return self[index(startIndex, offsetBy: i)]
+  }
+}
+
+// Complete the twoStrings function below.
+func twoStrings(s1: String, s2: String) -> String { // any single letter matches
+    let c1 = Array(s1)
+    let c2 = Array(s2)
+    var table = [Character:Int]()
+    for i in 0...s1.count-1 {
+        let c = c1[i]
+        table[c] = 1
+    }
+    for i in 0...s2.count-1 { // first collision = yes
+        let c = c2[i]
+        if let _ = table[c] {
+            return "YES"
+        }
+    } // exhaustive fail
+    return "NO"
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let q = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for qItr in 1...q {
+    guard let s1 = readLine() else { fatalError("Bad input") }
+
+    guard let s2 = readLine() else { fatalError("Bad input") }
+
+    let result = twoStrings(s1: s1, s2: s2)
+
+    fileHandle.write(result.data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+---
+
+
+
+import Foundation
+
+// Complete the isBalanced function below.
+func isBalanced(s: String) -> String {
+    let c = Array(s)
+    var stack = [Character]()
+    var opposites:[Character:Character] = ["(":")", "[":"]", "{":"}"]
+    print("\(opposites)")
+    for i in 0...c.count-1 {
+        let p = c[i]
+        print(" .    S: \(stack)")
+        switch p {
+            case "{", "(", "[": // push
+                stack.append(p)
+            case "}", ")", "]": // pop
+                print("GOT P: \(p)")
+                if let l = stack.last, let o = opposites[l], p == o {
+                        stack.removeLast()
+                } else { // premature empty stack | not matching
+                    return "NO"
+                }
+            default: // unexpected character
+                print("default ? \(p)")
+                return "NO"
+        }
+    }
+    if stack.count > 0 { // premature exit
+        return "NO"
+    }
+    return "YES"
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let t = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for tItr in 1...t {
+    guard let s = readLine() else { fatalError("Bad input") }
+
+    let result = isBalanced(s: s)
+
+    fileHandle.write(result.data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+---
+
+
+
+import Foundation
+
+// Complete the isBalanced function below.
+func isBalanced(s: String) -> String {
+    let c = Array(s)
+    var stack = [Character]()
+    var opposites:[Character:Character] = ["(":")", "[":"]", "{":"}"]
+    for i in 0...c.count-1 {
+        let p = c[i]
+        switch p {
+            case "{", "(", "[": // push
+                stack.append(p)
+            case "}", ")", "]": // pop
+                if let l = stack.last, let o = opposites[l], p == o {
+                    stack.removeLast()
+                } else { // premature empty stack | not matching
+                    return "NO"
+                }
+            default: // unexpected character
+                return "NO"
+        }
+    }
+    if stack.count > 0 { // premature exit
+        return "NO"
+    }
+    return "YES"
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let t = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for tItr in 1...t {
+    guard let s = readLine() else { fatalError("Bad input") }
+
+    let result = isBalanced(s: s)
+
+    fileHandle.write(result.data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+---
+import Foundation
+
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let n = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+var queue:[Int] = []
+
+for i in 1...n {
+    guard let arrTemp = readLine() else { fatalError("Bad input") }
+    let arr: [Int] = arrTemp.split(separator: " ").map {
+        if let arrItem = Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            return arrItem
+        } else { fatalError("Bad input") }
+    }    
+    let command = arr[0]
+    switch command {
+        case 1:
+            let value = arr[1]
+            queue.append(value)
+        case 2:
+            queue.removeFirst()
+        case 3:
+            let value = queue[0]
+            fileHandle.write(String(value).data(using: .utf8)!)
+            fileHandle.write("\n".data(using: .utf8)!)
+        default:
+            print("unknown")
+    }   
+}
+
+fileHandle.closeFile()
+
+
+
+
+---
+import Foundation
+
+// Complete the stepPerms function below.
+var lookup = [Int:Int]()
+func stepPerms(n: Int) -> Int {
+    if n<=0 { // end cases
+        return 0
+    }else if n==1 {
+        return 1
+    }else if n==2 {
+        return 2
+    }else if n==3 {
+        return 4
+    } // recursive
+    if let val = lookup[n] {
+        return val
+    }
+    let calc = stepPerms(n: n - 3) + stepPerms(n: n - 2) + stepPerms(n: n - 1)
+    lookup[n] = calc
+    return calc
+}
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let s = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for sItr in 1...s {
+    guard let n = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+    else { fatalError("Bad input") }
+
+    let res = stepPerms(n: n)
+
+    fileHandle.write(String(res).data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+
+
+
+---
+
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* readline();
+
+// Complete the stepPerms function below.
+int stepPerms(int n) {
+    if(n <= 0){ // end cases
+        return 0;
+    } else if(n == 1){
+        return 1;
+    } else if( n == 2){
+        return 2;
+    } else if (n == 3) {
+        return 4;
+    } // recursive
+    return stepPerms(n - 3) + stepPerms(n - 2) + stepPerms(n - 1);
+}
+
+int main()
+{
+    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+
+    char* s_endptr;
+    char* s_str = readline();
+    int s = strtol(s_str, &s_endptr, 10);
+
+    if (s_endptr == s_str || *s_endptr != '\0') { exit(EXIT_FAILURE); }
+
+    for (int s_itr = 0; s_itr < s; s_itr++) {
+        char* n_endptr;
+        char* n_str = readline();
+        int n = strtol(n_str, &n_endptr, 10);
+
+        if (n_endptr == n_str || *n_endptr != '\0') { exit(EXIT_FAILURE); }
+
+        int res = stepPerms(n);
+
+        fprintf(fptr, "%d\n", res);
+    }
+
+    fclose(fptr);
+
+    return 0;
+}
+
+char* readline() {
+    size_t alloc_length = 1024;
+    size_t data_length = 0;
+    char* data = malloc(alloc_length);
+
+    while (true) {
+        char* cursor = data + data_length;
+        char* line = fgets(cursor, alloc_length - data_length, stdin);
+
+        if (!line) {
+            break;
+        }
+
+        data_length += strlen(cursor);
+
+        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') {
+            break;
+        }
+
+        alloc_length <<= 1;
+
+        data = realloc(data, alloc_length);
+
+        if (!line) {
+            break;
+        }
+    }
+
+    if (data[data_length - 1] == '\n') {
+        data[data_length - 1] = '\0';
+
+        data = realloc(data, data_length);
+    } else {
+        data = realloc(data, data_length + 1);
+
+        data[data_length] = '\0';
+    }
+
+    return data;
+}
+
+
+
+
+---
+
+
+
+import Foundation
+
+extension String {
+  subscript (i: Int) -> Character {
+    return self[index(startIndex, offsetBy: i)]
+  }
+}
+class Cross {
+    var wordA: Word
+    var wordB: Word
+    var indexA: Int
+    var indexB: Int
+    init(_ A:Word, _ a:Int, _ B:Word, _ b:Int) {
+        wordA = A
+        indexA = a
+        wordB = B
+        indexB = b
+    }
+}
+class Word : NSObject {
+    var x: Int = 0
+    var y: Int = 0
+    var text: String = ""
+    var direction: Int = 0
+    var reference: Word?
+    var crosses = [Cross]()
+    init(x:Int, y:Int, direction:Int, text:String){
+        self.x = x
+        self.y = y
+        self.text = text
+        self.direction = direction
+    }
+    func letter(_ i:Int) -> String {
+        return "\(text[i])"
+    }
+    var size: Int {
+        get {
+            return text.count
+        }
+    }
+    override var description: String {
+        // return "\(x),\(y) @:\(size) +:\(crosses.count) (\(text))"
+        return "\(text)"
+    }
+}
+func printCrossword(_ background: String, _ words:[Word]) -> [String] {
+    let sizeX = 10
+    let sizeY = 10
+    var crossword = [String]()
+    // fill background
+    let line = String(repeating: background, count: sizeX)
+    for _ in 1...sizeY {
+        crossword.append(line)
+    }
+    // append each word
+    for word in words {
+        let incX = word.direction == 0 ? 1 : 0
+        let incY = word.direction == 1 ? 1 : 0
+        var indexX = word.x
+        var indexY = word.y
+        for i in 0...word.size-1 {
+            var line = crossword[indexY]
+            let letter = word.letter(i)
+            let start = line.index(line.startIndex, offsetBy: indexX)
+            let end = line.index(start, offsetBy: 0)
+            line.replaceSubrange(start...end, with: letter)
+            crossword[indexY] = line
+            indexX += incX
+            indexY += incY
+        }
+    }
+    return crossword
+}
+func parseCrossword(_ crossword: [String]) -> (String,[Word]) {
+    let sizeX = 10
+    let sizeY = 10
+    var holes = [Word]()
+    let background = "\(crossword[0][0])" // BG is always @ 0,0
+    // get list of all starting locations
+    var starts = [(Int,Int,Int)]()
+    for j in 0...crossword.count-1 {
+        let line = crossword[j]
+        for i in 0...line.count-1 {
+            let letter = "\(line[i])"
+            if letter != background {
+                // left & right
+                var isLR = false
+                let left = i>0 ? "\(line[i-1])" : background
+                let right = i<sizeX-1 ? "\(line[i+1])" : background
+                if left == background && right != background {
+                    isLR = true
+                }
+                // up & down
+                var isUD = false
+                let up = j>0 ? "\(crossword[j-1][i])" : background
+                let down = j<sizeY-1 ? "\(crossword[j+1][i])" : background
+                if up == background && down != background {
+                    isUD = true
+                }
+                if isLR || isUD {
+                    let direction = isLR ? 0 : 1
+                    starts.append( (i,j,direction) )
+                }
+            }
+        }
+    }
+    // fill in from all starting locations
+    for start in starts {
+        let x = start.0
+        let y = start.1
+        let direction = start.2
+        var text = ""
+        var notDone = true
+        let incX = direction == 0 ? 1 : 0 // l & r
+        let incY = direction == 1 ? 1 : 0 // u & d
+        var indexX = x
+        var indexY = y
+        while notDone {
+            if indexY < sizeY {
+                let line = crossword[indexY]
+                if indexX < sizeX {
+                    let char = "\(line[indexX])"
+                    if char != background {
+                        text = text + char
+                        indexX += incX
+                        indexY += incY
+                        continue
+                    } 
+                }
+            }
+           notDone = false
+        }
+        let word = Word(x:x, y:y, direction:direction, text:text)
+        holes.append(word)
+    }
+    // record all collisions
+    for i in 0...holes.count-2 {
+        let wordA = holes[i]
+        for j in i+1...holes.count-1 {
+            let wordB = holes[j]
+            if wordA.direction == 0 && wordB.direction == 1 {
+                checkCollision(wordA,wordB)
+            } else if wordA.direction == 1 && wordB.direction == 0 {
+                checkCollision(wordB,wordA)
+            }
+        }
+    }
+    return (background,holes)
+}
+func checkCollision(_ wordX:Word, _ wordY:Word) {
+    if (wordX.x <= wordY.x && wordY.x < wordX.x+wordX.size) &&
+       (wordY.y <= wordX.y && wordX.y < wordY.y+wordY.size) {
+        let collisionX = wordY.x
+        let collisionY = wordX.y
+        let cross = Cross(wordX, collisionX-wordX.x, wordY, collisionY-wordY.y)
+        wordX.crosses.append( cross )
+        wordY.crosses.append( cross )
+    }
+}
+func isFillHoleValid(hole:Word, fill:Word) -> Bool {
+    // wrong size
+    if hole.size != fill.size {
+        return false
+    }
+    // already filled
+    if hole.reference != nil {
+        return false
+    }
+    // intersection characters have to match
+    for cross in hole.crosses {
+        var other = cross.wordA
+        var otherI = cross.indexA
+        var thisI = cross.indexB
+        if other == hole {
+            other = cross.wordB
+            otherI = cross.indexB
+            thisI = cross.indexA
+        }
+        if let otherReference = other.reference {
+            if otherReference.text[otherI] != fill.text[thisI] {
+                return false
+            }
+        }
+    }
+    return true
+}
+func firstValidPermutation(holes:[Word], fills:[Word]) -> Bool {
+    let totalWords = fills.count
+    var fillsAvail = fills
+    var fillsDone = [Word]()
+    var permutations = [Int]()
+    let isDone = false
+    permutations.append(-1)
+    // for hole in holes {
+    //     print("\(hole)")
+    // }
+    // for fill in fills {
+    //     print("\(fill)")
+    // }
+    // var i = 0
+    while !isDone {
+        // i += 1
+        // if i > 100 {
+        //     break
+        // }
+        if fillsAvail.count == 0 { // no more to do
+            return true
+        }
+        // check number of loops
+        var count = permutations.removeLast()
+        if count >= (totalWords-permutations.count) { // permutation limit
+            if permutations.count == 0 { // limit on 0th list
+                return false
+            }
+            if fillsDone.count == 0 {
+                return false
+            }
+            let hole = holes[fillsDone.count-1]
+            hole.reference = nil
+            let fill = fillsDone.removeLast()
+            fillsAvail.insert(fill, at: 0)
+            continue
+        } // next permutation
+        count += 1
+        permutations.append(count)
+        // try to fill next hole
+        let fill = fillsAvail.removeLast()
+        let hole = holes[fillsDone.count]
+        if isFillHoleValid(hole: hole, fill: fill) { // success
+            hole.reference = fill
+            fillsDone.append(fill)
+            permutations.append(-1) // next stack
+        } else { // add to end continue to next permutation
+            fillsAvail.insert(fill, at: 0)
+        }
+    }
+    return false
+}
+// Complete the crosswordPuzzle function below.
+func crosswordPuzzle(crossword: [String], words: String) -> [String] {
+    // list out options:
+    var fills = words.split(separator: ";").map( { Word(x:0, y:0, direction:0, text:"\($0)") } )
+    // fills.reverse()
+    // list of locations
+    let (background, holes) = parseCrossword(crossword)
+    // iterate thru
+    let success = firstValidPermutation(holes: holes, fills: fills)
+    if success { // fill in locations
+        for hole in holes {
+            if let reference = hole.reference {
+                reference.x = hole.x
+                reference.y = hole.y
+                reference.direction = hole.direction
+            }
+        }
+    }
+    // print output
+    let filled = printCrossword(background, fills)
+    return filled
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+let crosswordX: [String] = AnyIterator{ readLine() }.prefix(10).map {
+    $0
+}
+
+guard crosswordX.count == 10 else { fatalError("Bad input") }
+
+guard let wordsX = readLine() else { fatalError("Bad input") }
+
+
+let crossword = [
+"+-++++++++",
+"+-++-+++++",
+"+-------++",
+"+-++-++-++",
+"+-++-++-++",
+"+-++-++-++",
+"++++-++-++",
+"+--------+",
+"++++++++++",
+"----------",
+]
+let words = "CALIFORNIA;LASVEGAS;NIGERIA;CANADA;TELAVIV;ALASKA"
+
+let result = crosswordPuzzle(crossword: crossword, words: words)
+
+fileHandle.write(result.joined(separator: "\n").data(using: .utf8)!)
+fileHandle.write("\n".data(using: .utf8)!)
+
+
+
+
+
++-++++++++
++-++++++++
++-------++
++-++++++++
++-----++++
++-+++-++++
++++-----++
++++++-++++
++++++-++++
++++++-++++
+SYDNEY;TURKEY;DETROIT;EGYPT;PARIS
+
+
++S++++++++
++Y++++++++
++DETROIT++
++N++++++++
++EGYPT++++
++Y+++U++++
++++PARIS++
++++++K++++
++++++E++++
++++++Y++++
+
+
+---
+
+import Foundation
+
+
+
+guard let N = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+
+if N%2 == 1 {
+    fileHandle.write("Weird".data(using: .utf8)!)
+} else {
+    if 2 <= N && N <= 5 {
+        fileHandle.write("Not Weird".data(using: .utf8)!)
+    } else if 6 <= N && N <= 20 {
+        fileHandle.write("Weird".data(using: .utf8)!)
+    } else {
+        fileHandle.write("Not Weird".data(using: .utf8)!)
+    }
+}
+
+
+fileHandle.write("\n".data(using: .utf8)!)
+
+
+
+
+
+
+---
+
+
+
+import Foundation
+
+// Complete the countSwaps function below.
+func countSwaps(a: [Int]) -> Void {
+    var b = a
+    var swaps = 0
+    for i in 0...b.count-1 {
+        for j in 0...b.count-2 {
+            if b[j] > b[j+1] {
+                let temp = b[j]
+                b[j] = b[j+1]
+                b[j+1] = temp
+                swaps += 1
+            }
+        }
+    }
+    print("Array is sorted in \(swaps) swaps.")
+    print("First Element: \(b[0])")
+    print("Last Element: \(b[b.count-1])")
+}
+
+guard let n = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+guard let aTemp = readLine() else { fatalError("Bad input") }
+let a: [Int] = aTemp.split(separator: " ").map {
+    if let aItem = Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) {
+        return aItem
+    } else { fatalError("Bad input") }
+}
+
+guard a.count == n else { fatalError("Bad input") }
+
+countSwaps(a: a)
+
+
+---
+
+???
+
+
+
+
+---
+
+
+
+import Foundation
+
+extension String {
+  subscript (i: Int) -> Character {
+    return self[index(startIndex, offsetBy: i)]
+  }
+}
+
+
+// Complete the alternatingCharacters function below.
+func alternatingCharacters(s: String) -> Int {
+    let count = s.count
+    var current = s[0]
+    var drop = 0
+    for i in 1...count-1 {
+        let next = s[i]
+        if next == current {
+            drop += 1
+        }
+        current = next
+    }
+    return drop
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let q = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for qItr in 1...q {
+    guard let s = readLine() else { fatalError("Bad input") }
+
+    let result = alternatingCharacters(s: s)
+
+    fileHandle.write(String(result).data(using: .utf8)!)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+
+
+---
+
+
+        bool hasNode(Node *root, int v) {
+            if(!root){
+                return false;
+            }
+            if(root->data == v){
+                return true;
+            }
+            return hasNode(root->left, v) || hasNode(root->right, v)
+        }
+
+
+
+
+---
+
+import Foundation
+
+
+
+guard let n = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for i in 1...10 {
+    let product = n * i
+    print("\(n) x \(i) = \(product)")
+}
+
+
+
+
+
+
+---
+
+
+
+import Foundation
+
+final class DoublyLinkedListNode {
+    var data: Int
+    var next: DoublyLinkedListNode?
+    weak var prev: DoublyLinkedListNode?
+
+    public init(nodeData: Int) {
+        self.data = nodeData
+    }
+}
+
+final class DoublyLinkedList {
+    var head: DoublyLinkedListNode?
+    var tail: DoublyLinkedListNode?
+
+    public init() {}
+
+    public func insertNode(nodeData: Int) {
+        self.insertNode(node: DoublyLinkedListNode(nodeData: nodeData))
+    }
+
+    private func insertNode(node: DoublyLinkedListNode) {
+        if let tail = tail {
+            tail.next = node
+            node.prev = tail
+        } else {
+            head = node
+        }
+
+        tail = node
+    }
+}
+
+func printDoublyLinkedList(head: DoublyLinkedListNode?, sep: String, fileHandle: FileHandle) {
+    var node = head
+
+    while node != nil {
+        fileHandle.write(String(node!.data).data(using: .utf8)!)
+
+        node = node!.next
+
+        if node != nil {
+            fileHandle.write(sep.data(using: .utf8)!)
+        }
+    }
+}
+
+// Complete the sortedInsert function below.
+
+/*
+ * For your reference:
+ *
+ * DoublyLinkedListNode {
+ *     data: Int
+ *     next: DoublyLinkedListNode?
+ *     prev: DoublyLinkedListNode?
+ * }
+ *
+ */
+func sortedInsert(llist head: DoublyLinkedListNode?, data: Int) -> DoublyLinkedListNode? {
+    let node = DoublyLinkedListNode(nodeData: data)
+    guard var next = head else { return node } // empty list
+    while next.next != nil && next.data < data {
+        next = next.next!
+    }
+    if next.next == nil && next.data < data { // last element
+        next.next = node
+        node.prev = next
+    } else { // interrior
+        node.next = next
+        node.prev = next.prev
+        next.prev?.next = node
+        next.prev = node
+    }
+    if node.prev == nil {
+        return node
+    }
+    return head   
+}
+
+let stdout = ProcessInfo.processInfo.environment["OUTPUT_PATH"]!
+FileManager.default.createFile(atPath: stdout, contents: nil, attributes: nil)
+let fileHandle = FileHandle(forWritingAtPath: stdout)!
+
+guard let t = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for tItr in 1...t {
+    guard let llistCount = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+    else { fatalError("Bad input") }
+
+    let llist = DoublyLinkedList()
+
+    for _ in 1...llistCount {
+        guard let llistItem = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+        else { fatalError("Bad input") }
+        llist.insertNode(nodeData: llistItem)
+    }
+
+    guard let data = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+    else { fatalError("Bad input") }
+
+    let llist1 = sortedInsert(llist: llist.head!, data: data)
+
+    printDoublyLinkedList(head: llist1, sep: " ", fileHandle: fileHandle)
+    fileHandle.write("\n".data(using: .utf8)!)
+}
+
+
+
+
+
+---
+
+func reverse(llist head: DoublyLinkedListNode?) -> DoublyLinkedListNode? {
+    guard var current = head else { return nil }
+    while true {
+        let prev = current.prev
+        let next = current.next
+        current.prev = next
+        current.next = prev
+        if let n = next {
+            current = n
+        } else {
+            break
+        }
+    }
+    return current
+}
+
+- (DoublyLinkedListNode *) reverse:(DoublyLinkedListNode *)llist {
+    DoublyLinkedListNode *current = llist;
+    while (current != nil) {
+        DoublyLinkedListNode *prev = current.prev;
+        DoublyLinkedListNode *next = current.next;
+        current.prev = next;
+        current.next = prev;
+        if (next != nil) {
+            current = next;
+        } else {
+            break;
+        }
+    }
+    return current;
+}
+
+
+
+
+---
+
+
+import Foundation
+
+// Complete the whatFlavors function below.
+func whatFlavors(cost: [Int], money: Int) -> Void {
+    // buy exactly 2 items to equal money
+    var lookup = [Int:Int]()
+    for price in cost {
+        let count = (lookup[price] ?? 0) + 1
+        lookup[price] = count
+    }
+    for price in cost {
+        let remainder = money - price
+        // print("  \(money) - \(price) = \(remainder) ---- \(lookup[remainder])")
+        if remainder > 0, let count = lookup[remainder] {
+            if remainder == price && count < 2 {
+                continue
+            }
+            let mini = min(price,remainder)
+            let maxi = max(price,remainder)
+            print(" \(mini) + \(maxi) = \(money) ")
+            return
+        }
+    }
+}
+
+guard let t = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+else { fatalError("Bad input") }
+
+for tItr in 1...t {
+    guard let money = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+    else { fatalError("Bad input") }
+
+    guard let n = Int((readLine()?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+    else { fatalError("Bad input") }
+
+    guard let costTemp = readLine() else { fatalError("Bad input") }
+    let cost: [Int] = costTemp.split(separator: " ").map {
+        if let costItem = Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            return costItem
+        } else { fatalError("Bad input") }
+    }
+
+    guard cost.count == n else { fatalError("Bad input") }
+
+    whatFlavors(cost: cost, money: money)
+}
+
+
+
+
+---
+
+
+
+
+
+
+// Complete the whatFlavors function below.
+func whatFlavors(cost: [Int], money: Int) -> Void {
+    // buy exactly 2 items to equal money
+    var lookupCostToID = [Int:Int]()
+    for i in 0...cost.count - 1 {
+        let price = cost[i]
+        let remainder = money - price
+        if let existing = lookupCostToID[remainder] {
+            print("\(existing+1) \(i+1)")
+        }
+        lookupCostToID[price] = i
+    }
+}
+
+
+
+
+---
+
+
+
+#import <Foundation/Foundation.h>
+#import <objc/Object.h>
+#import <objc/objc.h>
+
+@interface NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter;
+@end
+
+@implementation NSString (NumberFromString)
+- (NSNumber *) numberFromString:(NSNumberFormatter *)formatter {
+    NSNumber *number = [formatter numberFromString:self];
+
+    if (number == nil) {
+        [NSException raise:@"Bad Input" format:@"%@", self];
+    }
+
+    return number;
+}
+@end
+
+@interface NSString (ArrayFromString)
+- (NSArray *) arrayFromString;
+@end
+
+@implementation NSString (ArrayFromString)
+- (NSArray *) arrayFromString {
+    return [self componentsSeparatedByString:@" "];
+}
+@end
+
+@interface Solution:NSObject
+- (void) whatFlavors:(NSArray *)cost money:(NSNumber *)money;
+@end
+
+@implementation Solution
+// Complete the whatFlavors function below.
+- (void) whatFlavors:(NSArray *)cost money:(NSNumber *)money {
+    NSMutableDictionary *lookupCostToID = [[NSMutableDictionary alloc] init];
+    int total = money.integerValue;
+    int count = cost.count;
+    for(int i=0; i<count; ++i){
+        NSNumber *priceIn = (NSNumber*)cost[i];
+        int price = priceIn.integerValue;
+        NSNumber* remainder = [NSNumber numberWithInt:(total - price)];
+        NSNumber *existing = lookupCostToID[remainder];
+        if (existing) {
+            printf("%d %d\n",existing.integerValue+1,i+1);
+            return;
+        }
+        [lookupCostToID setValue:[NSNumber numberWithInt:i] forKey:priceIn];
+    }
+    /*
+    int total = money.integerValue;
+    int count = cost.count;
+    for(int i=0; i<count; ++i){
+        int a = ((NSNumber*)cost[i]).integerValue;
+        for(int j=i+1; j<count; ++j){
+            int b = ((NSNumber*)cost[j]).integerValue;
+            if(a+b==total){
+                printf("%d %d\n", i+1, j+1);
+                return;
+            }
+        }
+    }
+    */
+}
+
+@end
+
+int main(int argc, const char* argv[]) {
+    @autoreleasepool {
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+
+        NSData *availableInputData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+        NSString *availableInputString = [[NSString alloc] initWithData:availableInputData encoding:NSUTF8StringEncoding];
+        NSArray *availableInputArray = [availableInputString componentsSeparatedByString:@"\n"];
+
+        NSUInteger currentInputLine = 0;
+
+        NSNumber *t = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+        currentInputLine += 1;
+
+        for (NSUInteger tItr = 0; tItr < [t integerValue]; tItr++) {
+            NSNumber *money = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+            currentInputLine += 1;
+
+            NSNumber *n = [[availableInputArray objectAtIndex:currentInputLine] numberFromString:numberFormatter];
+            currentInputLine += 1;
+
+            NSArray *costTemp = [[availableInputArray objectAtIndex:currentInputLine] componentsSeparatedByString:@" "];
+            currentInputLine += 1;
+
+            NSMutableArray *costTempMutable = [NSMutableArray arrayWithCapacity:[n unsignedIntegerValue]];
+
+            [costTemp enumerateObjectsUsingBlock:^(NSString *costItem, NSUInteger idx, BOOL *stop) {
+                [costTempMutable addObject:[costItem numberFromString:numberFormatter]];
+            }];
+
+            NSArray *cost = [costTempMutable copy];
+
+            [[[Solution alloc] init] whatFlavors:cost money:money];
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+---
+
+
+
+//Enter your code here. Read input from STDIN. Print output to STDOUT
+
+#import <Foundation/Foundation.h>
+
+
+int main() {
+    @autoreleasepool {
+        // count of tests
+        int n;
+        scanf("%d",&n);
+        // printf("n: %d\n", n);
+        
+        NSString *word;
+        char* word_temp = (char *)malloc(512000 * sizeof(char));
+        NSMutableArray *list = [NSMutableArray new];
+        for(int i=0; i<n; ++i){
+            scanf("%s",word_temp);
+            word = [NSString stringWithFormat:@"%s", word_temp];
+            [list addObject: word];
+        }
+        for (NSString *word in list) {
+            int length = word.length;
+            // even
+            for (int i=0; i<length; i+=2) {
+                NSString *c = [word substringWithRange:NSMakeRange(i, 1)];
+                char *cstring = [c UTF8String];
+                printf("%s", cstring);
+            }
+            printf(" ");
+            // odd
+            for (int i=1; i<length; i+=2) {
+                NSString *c = [word substringWithRange:NSMakeRange(i, 1)];
+                char *cstring = [c UTF8String];
+                printf("%s", cstring);
+            }
+            printf("\n");
+        }
+    }
+  return 0;
+}
+
+
+
+
+
+---
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
